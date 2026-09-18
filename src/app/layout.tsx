@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist } from "next/font/google";
+import { Bricolage_Grotesque, Caveat, Geist } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Grain } from "@/components/Grain";
@@ -17,6 +17,12 @@ const body = Geist({
   subsets: ["latin"],
 });
 
+const script = Caveat({
+  variable: "--font-script",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Clique Boost — Marketing integrado para o seu negócio",
   description:
@@ -25,7 +31,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${display.variable} ${body.variable} h-full antialiased`}>
+    <html
+      lang="pt-BR"
+      className={`${display.variable} ${body.variable} ${script.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col">
         <Grain />
         <CustomCursor />

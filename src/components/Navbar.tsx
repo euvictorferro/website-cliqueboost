@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Logo } from "./Logo";
 
@@ -15,10 +15,28 @@ const SERVICES = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-[var(--cb-bg)]/60 border-b border-[var(--cb-border)]">
-      <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 h-16">
+    <header
+      className={`fixed top-0 inset-x-0 z-50 backdrop-blur-md border-b transition-colors duration-300 ${
+        scrolled
+          ? "bg-[var(--cb-bg)]/85 border-[var(--cb-border)]"
+          : "bg-[var(--cb-bg)]/20 border-transparent"
+      }`}
+    >
+      <nav
+        className={`max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 transition-[height] duration-300 ${
+          scrolled ? "h-14" : "h-20"
+        }`}
+      >
         <Link href="/" onClick={() => setOpen(false)}>
           <Logo size={26} />
         </Link>

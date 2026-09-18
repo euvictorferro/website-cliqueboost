@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --cb-bg: #05060a;
-  --cb-bg-soft: #0b0d16;
-  --cb-fg: #f5f6fa;
-  --cb-muted: #8b90a8;
+  --cb-bg: #0a0a12;
+  --cb-bg-soft: #131320;
+  --cb-fg: #f5f0e6;
+  --cb-muted: #9994a8;
   --cb-blue: #2563eb;
   --cb-violet: #4f46e5;
   --cb-gradient: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
-  --cb-border: rgba(245, 246, 250, 0.1);
+  --cb-border: rgba(245, 240, 230, 0.1);
 }
 
 @theme inline {
@@ -24,6 +24,11 @@
 
 h1, h2, h3 {
   font-family: var(--font-display), var(--font-body), sans-serif;
+}
+
+.cb-script {
+  font-family: var(--font-script), cursive;
+  font-weight: 700;
 }
 
 html {

@@ -2,14 +2,15 @@ import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { FinalCTA } from "@/components/FinalCTA";
 import { LogoMark } from "@/components/Logo";
+import { Squiggle } from "@/components/Squiggle";
 
 const SERVICE_CARDS = [
-  { href: "/servicos/websites", title: "Websites", description: "Sites que convertem, não só existem." },
-  { href: "/servicos/trafego", title: "Tráfego / Ads", description: "Investimento com estratégia e retorno claro." },
-  { href: "/servicos/social-media", title: "Social Media", description: "Conteúdo com sistema, não achismo." },
-  { href: "/servicos/automacoes", title: "Automações com IA", description: "Processos que rodam sem depender de gente." },
-  { href: "/servicos/design-grafico", title: "Design Gráfico", description: "Identidade visual consistente em tudo." },
-  { href: "/servicos/brand-guide", title: "Brand Guide", description: "A marca documentada e pronta para escalar." },
+  { href: "/servicos/websites", title: "Websites", description: "Sites que convertem, não só existem.", rotate: "[transform:rotate(-6deg)]" },
+  { href: "/servicos/trafego", title: "Tráfego / Ads", description: "Investimento com estratégia e retorno claro.", rotate: "[transform:rotate(5deg)]" },
+  { href: "/servicos/social-media", title: "Social Media", description: "Conteúdo com sistema, não achismo.", rotate: "[transform:rotate(-4deg)]" },
+  { href: "/servicos/automacoes", title: "Automações com IA", description: "Processos que rodam sem depender de gente.", rotate: "[transform:rotate(6deg)]" },
+  { href: "/servicos/design-grafico", title: "Design Gráfico", description: "Identidade visual consistente em tudo.", rotate: "[transform:rotate(-5deg)]" },
+  { href: "/servicos/brand-guide", title: "Brand Guide", description: "A marca documentada e pronta para escalar.", rotate: "[transform:rotate(4deg)]" },
 ];
 
 export default function Home() {
@@ -20,11 +21,11 @@ export default function Home() {
           <LogoMark size={480} />
         </div>
         <Reveal className="relative">
-          <span className="text-sm font-semibold cb-gradient-text uppercase tracking-wider">
-            Clique Boost
+          <span className="cb-script text-3xl md:text-4xl cb-gradient-text block -mb-2 md:-mb-4 [transform:rotate(-3deg)]">
+            Clique Boost apresenta
           </span>
-          <h1 className="text-6xl md:text-9xl font-black tracking-tight leading-[0.9] mt-4 mb-8 max-w-6xl">
-            Marketing que <span className="cb-gradient-text">conecta</span> tudo
+          <h1 className="text-6xl md:text-9xl font-black tracking-tight leading-[0.9] mb-8 max-w-6xl uppercase">
+            Marketing que <span className="cb-script lowercase cb-gradient-text text-[0.7em]">conecta</span> tudo
           </h1>
           <p className="text-xl md:text-2xl text-[var(--cb-muted)] max-w-2xl mb-10">
             Websites, Tráfego, Social Media, Automações com IA, Design Gráfico e Brand Guide —
@@ -48,19 +49,23 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <section className="py-28 px-6 md:px-10">
+      <section className="py-32 px-6 md:px-10">
         <div className="max-w-6xl mx-auto">
-          <Reveal>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-16 leading-tight max-w-2xl">
-              Escolha a frente que mais dói agora
+          <Reveal className="relative mb-20 max-w-2xl">
+            <span className="cb-script text-2xl cb-gradient-text absolute -top-8 left-1 [transform:rotate(-4deg)]">
+              Escolha a sua
+            </span>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-tight uppercase">
+              Frente que mais dói agora
             </h2>
+            <Squiggle className="absolute -right-24 top-0 hidden lg:block" />
           </Reveal>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-x-6 gap-y-10">
             {SERVICE_CARDS.map((s, i) => (
               <Reveal key={s.href} delay={i * 0.06}>
                 <Link
                   href={s.href}
-                  className="group block p-8 rounded-2xl border border-[var(--cb-border)] h-full hover:border-[var(--cb-violet)] transition-colors"
+                  className={`group block p-8 rounded-2xl border border-[var(--cb-border)] bg-[var(--cb-bg-soft)] h-full shadow-xl shadow-black/30 transition-all duration-300 ${s.rotate} hover:[transform:rotate(0deg)_translateY(-8px)] hover:shadow-2xl hover:shadow-[var(--cb-violet)]/20 hover:border-[var(--cb-violet)]`}
                 >
                   <h3 className="text-xl font-bold mb-3 group-hover:cb-gradient-text transition-colors">
                     {s.title}
