@@ -9,7 +9,7 @@ import type { ServiceContent } from "@/content/services";
 export function ServicePageTemplate({ content }: { content: ServiceContent }) {
   return (
     <>
-      <ServiceHero eyebrow={content.eyebrow} title={content.title} painHook={content.painHook} />
+      <ServiceHero title={content.title} painHook={content.painHook} />
       <ProblemSection title={content.problem.title} points={content.problem.points} />
       <SolutionSection title={content.solution.title} items={content.solution.items} />
       <DashProofSection angle={content.dashAngle} />

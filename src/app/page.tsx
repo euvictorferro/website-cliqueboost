@@ -1,49 +1,49 @@
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
+import { ServiceCard } from "@/components/ServiceCard";
+import { ValuesSlider } from "@/components/ValuesSlider";
+import { SolutionSection } from "@/components/SolutionSection";
+import { DashProofSection } from "@/components/DashProofSection";
+import { ProcessSteps } from "@/components/ProcessSteps";
 import { FinalCTA } from "@/components/FinalCTA";
-import { LogoMark } from "@/components/Logo";
-import { Squiggle } from "@/components/Squiggle";
 
-const SERVICE_CARDS = [
-  { href: "/servicos/websites", title: "Websites", description: "Sites que convertem, não só existem.", rotate: "[transform:rotate(-6deg)]" },
-  { href: "/servicos/trafego", title: "Tráfego / Ads", description: "Investimento com estratégia e retorno claro.", rotate: "[transform:rotate(5deg)]" },
-  { href: "/servicos/social-media", title: "Social Media", description: "Conteúdo com sistema, não achismo.", rotate: "[transform:rotate(-4deg)]" },
-  { href: "/servicos/automacoes", title: "Automações com IA", description: "Processos que rodam sem depender de gente.", rotate: "[transform:rotate(6deg)]" },
-  { href: "/servicos/design-grafico", title: "Design Gráfico", description: "Identidade visual consistente em tudo.", rotate: "[transform:rotate(-5deg)]" },
-  { href: "/servicos/brand-guide", title: "Brand Guide", description: "A marca documentada e pronta para escalar.", rotate: "[transform:rotate(4deg)]" },
+const SERVICES = [
+  { href: "/servicos/websites", title: "Websites", description: "Sites que convertem, não só existem." },
+  { href: "/servicos/trafego", title: "Tráfego Pago", description: "Investimento com estratégia e retorno claro." },
+  { href: "/servicos/social-media", title: "Social Media", description: "Conteúdo com sistema, não achismo." },
+  { href: "/servicos/automacoes", title: "Automação", description: "Processos que rodam sem depender de gente." },
+  { href: "/servicos/design-grafico", title: "Design", description: "Identidade visual consistente em tudo." },
+  { href: "/servicos/brand-guide", title: "Brand Guidelines", description: "A marca documentada e pronta para escalar." },
 ];
 
 export default function Home() {
   return (
     <>
       <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-10 pt-24 cb-noise overflow-hidden">
-        <div className="absolute -right-32 -top-32 opacity-20 pointer-events-none">
-          <LogoMark size={480} />
-        </div>
-        <Reveal className="relative">
-          <span className="cb-script text-3xl md:text-4xl cb-gradient-text block -mb-2 md:-mb-4 [transform:rotate(-3deg)]">
-            Clique Boost apresenta
-          </span>
-          <h1 className="text-6xl md:text-9xl font-black tracking-tight leading-[0.9] mb-8 max-w-6xl uppercase">
-            Marketing que <span className="cb-script lowercase cb-gradient-text text-[0.7em]">conecta</span> tudo
+        <Reveal className="relative max-w-4xl">
+          <h1 className="text-6xl md:text-8xl mb-8">
+            Todo o seu marketing, integrado, com um só ponto de contato
           </h1>
-          <p className="text-xl md:text-2xl text-[var(--cb-muted)] max-w-2xl mb-10">
-            Websites, Tráfego, Social Media, Automações com IA, Design Gráfico e Brand Guide —
-            integrados em um único método, com um único ponto de contato.
+          <p className="text-xl md:text-2xl text-[var(--cb-muted)] max-w-2xl mb-4">
+            Em vez de contratar 6 fornecedores diferentes que não conversam entre si, você
+            tem um único time cuidando de tudo — com visão completa do seu negócio.
+          </p>
+          <p className="text-lg cb-gradient-text font-semibold mb-10">
+            Acelerando o seu sonho americano.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
-              href="/metodo"
-              className="cb-gradient-bg text-white font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform"
-            >
-              Conheça o BoostConnect
-            </Link>
-            <Link
               href="https://wa.me/12393750915"
               target="_blank"
-              className="border border-[var(--cb-border)] font-bold px-8 py-4 rounded-full hover:border-[var(--cb-fg)] transition-colors"
+              className="cb-gradient-bg cb-press text-white font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform"
             >
               Falar com um consultor
+            </Link>
+            <Link
+              href="/aplicativo"
+              className="cb-press border border-[var(--cb-border-strong)] font-bold px-8 py-4 rounded-full hover:border-[var(--cb-fg)] transition-colors"
+            >
+              Conheça o Aplicativo
             </Link>
           </div>
         </Reveal>
@@ -51,34 +51,55 @@ export default function Home() {
 
       <section className="py-32 px-6 md:px-10">
         <div className="max-w-6xl mx-auto">
-          <Reveal className="relative mb-20 max-w-2xl">
-            <span className="cb-script text-2xl cb-gradient-text absolute -top-8 left-1 [transform:rotate(-4deg)]">
-              Escolha a sua
-            </span>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-tight uppercase">
-              Frente que mais dói agora
-            </h2>
-            <Squiggle className="absolute -right-24 top-0 hidden lg:block" />
+          <Reveal className="mb-16 max-w-2xl">
+            <h2 className="text-4xl md:text-6xl">Seis frentes, uma só estratégia</h2>
           </Reveal>
-          <div className="grid md:grid-cols-3 gap-x-6 gap-y-10">
-            {SERVICE_CARDS.map((s, i) => (
-              <Reveal key={s.href} delay={i * 0.06}>
-                <Link
-                  href={s.href}
-                  className={`group block p-8 rounded-2xl border border-[var(--cb-border)] bg-[var(--cb-bg-soft)] h-full shadow-xl shadow-black/30 transition-all duration-300 ${s.rotate} hover:[transform:rotate(0deg)_translateY(-8px)] hover:shadow-2xl hover:shadow-[var(--cb-violet)]/20 hover:border-[var(--cb-violet)]`}
-                >
-                  <h3 className="text-xl font-bold mb-3 group-hover:cb-gradient-text transition-colors">
-                    {s.title}
-                  </h3>
-                  <p className="text-[var(--cb-muted)] leading-relaxed">{s.description}</p>
-                </Link>
+          <div className="grid md:grid-cols-3 gap-6">
+            {SERVICES.map((s, i) => (
+              <Reveal key={s.href} delay={i * 0.06} className="h-full">
+                <ServiceCard href={s.href} title={s.title} description={s.description} />
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <FinalCTA />
+      <ValuesSlider />
+
+      <SolutionSection
+        title="Um único time, responsável pelo resultado completo"
+        items={[
+          {
+            title: "Sem ruído entre fornecedores",
+            description: "Site, tráfego, conteúdo e automação nascem da mesma estratégia.",
+          },
+          {
+            title: "Um ponto de contato",
+            description: "Você fala com um time só, que enxerga o negócio inteiro.",
+          },
+          {
+            title: "Visão unificada de dados",
+            description: "Tudo acompanhado em um único painel de métricas.",
+          },
+        ]}
+      />
+
+      <DashProofSection angle="No BoostConnect, isso significa ver todas as frentes do seu marketing em um único painel." />
+
+      <ProcessSteps
+        title="Como funciona o BoostConnect"
+        steps={[
+          { title: "Diagnóstico completo", description: "Mapeamos todas as frentes do seu marketing atual." },
+          { title: "Plano integrado", description: "Desenhamos a estratégia conectando as seis frentes." },
+          { title: "Execução conjunta", description: "Todos os times trabalhando com a mesma visão." },
+          { title: "Acompanhamento único", description: "Um painel, um time, um resultado." },
+        ]}
+      />
+
+      <FinalCTA
+        title="Pronto para integrar todo o seu marketing?"
+        subtitle="Fale com um consultor e entenda como o BoostConnect funciona para o seu negócio."
+      />
     </>
   );
 }

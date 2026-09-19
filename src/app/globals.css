@@ -1,21 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --cb-bg: #0a0a12;
-  --cb-bg-soft: #131320;
-  --cb-fg: #f5f0e6;
-  --cb-muted: #9994a8;
-  --cb-blue: #2563eb;
-  --cb-violet: #4f46e5;
-  --cb-gradient: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
-  --cb-border: rgba(245, 240, 230, 0.1);
+  --cb-bg: #0b0b0d;
+  --cb-panel: #151515;
+  --cb-panel-raised: #1c1c1f;
+  --cb-fg: #ffffff;
+  --cb-muted: #9a9aa2;
+  --cb-purple: #8a2be2;
+  --cb-blue: #007bff;
+  --cb-gradient: linear-gradient(135deg, #8a2be2 0%, #007bff 100%);
+  --cb-green: #00c49a;
+  --cb-border: rgba(255, 255, 255, 0.1);
+  --cb-border-strong: rgba(255, 255, 255, 0.2);
 }
 
 @theme inline {
   --color-background: var(--cb-bg);
   --color-foreground: var(--cb-fg);
+  --color-cb-purple: var(--cb-purple);
   --color-cb-blue: var(--cb-blue);
-  --color-cb-violet: var(--cb-violet);
   --color-cb-muted: var(--cb-muted);
   --color-cb-border: var(--cb-border);
   --font-sans: var(--font-body);
@@ -26,9 +29,22 @@ h1, h2, h3 {
   font-family: var(--font-display), var(--font-body), sans-serif;
 }
 
-.cb-script {
-  font-family: var(--font-script), cursive;
+/* Optical sizing per Apple Design skill: tracking is size-specific, never one value */
+h1, .cb-display-xl {
   font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+h2, .cb-display-lg {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 html {
@@ -44,7 +60,7 @@ body {
 }
 
 ::selection {
-  background: var(--cb-violet);
+  background: var(--cb-purple);
   color: var(--cb-fg);
 }
 
@@ -59,9 +75,22 @@ body {
   background: var(--cb-gradient);
 }
 
+/* Translucent chrome per Apple Design skill: content scrolls under, never opaque */
+.cb-glass {
+  background: rgba(11, 11, 13, 0.6);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+.cb-panel {
+  background: var(--cb-panel);
+  border: 1px solid var(--cb-border);
+  border-radius: 20px;
+}
+
 .cb-noise {
-  background-image: radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.15), transparent 40%),
-    radial-gradient(circle at 80% 60%, rgba(37, 99, 235, 0.12), transparent 45%);
+  background-image: radial-gradient(circle at 15% 10%, rgba(138, 43, 226, 0.16), transparent 45%),
+    radial-gradient(circle at 85% 60%, rgba(0, 123, 255, 0.14), transparent 50%);
 }
 
 .cb-grain {
@@ -69,8 +98,16 @@ body {
   inset: 0;
   z-index: 60;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.04;
   mix-blend-mode: overlay;
+}
+
+/* Button press feedback per Apple Design skill: respond on press, not release */
+.cb-press {
+  transition: transform 100ms ease-out;
+}
+.cb-press:active {
+  transform: scale(0.97);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -83,3 +120,11 @@ body {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,6 +1,5 @@
 export type ServiceContent = {
   slug: string;
-  eyebrow: string;
   title: string;
   painHook: string;
   problem: { title: string; points: string[] };
@@ -13,7 +12,6 @@ export type ServiceContent = {
 export const SERVICES: Record<string, ServiceContent> = {
   websites: {
     slug: "websites",
-    eyebrow: "Websites",
     title: "Seu site hoje afasta cliente antes da primeira mensagem",
     painHook:
       "Se o seu site ainda parece um cartão de visitas de 2015, é isso que o mercado está lendo sobre o seu negócio.",
@@ -51,7 +49,6 @@ export const SERVICES: Record<string, ServiceContent> = {
   },
   trafego: {
     slug: "trafego",
-    eyebrow: "Tráfego / Ads",
     title: "Investir em anúncio sem estratégia é queimar dinheiro",
     painHook:
       "Você já colocou dinheiro em anúncio e não viu retorno claro — o problema quase nunca é o orçamento, é a estrutura por trás dele.",
@@ -89,7 +86,6 @@ export const SERVICES: Record<string, ServiceContent> = {
   },
   "social-media": {
     slug: "social-media",
-    eyebrow: "Social Media",
     title: "Postar sem estratégia é só ruído, não crescimento",
     painHook:
       "Você posta, mas o perfil não cresce e não gera venda — o problema é a ausência de um sistema por trás do conteúdo.",
@@ -127,7 +123,6 @@ export const SERVICES: Record<string, ServiceContent> = {
   },
   automacoes: {
     slug: "automacoes",
-    eyebrow: "Automações com IA",
     title: "Seu time perde tempo com tarefa que a IA já resolve",
     painHook:
       "Enquanto sua equipe responde manualmente o mesmo lead pela quinta vez, seus concorrentes já automatizaram isso.",
@@ -165,7 +160,6 @@ export const SERVICES: Record<string, ServiceContent> = {
   },
   "design-grafico": {
     slug: "design-grafico",
-    eyebrow: "Design Gráfico",
     title: "Visual inconsistente faz sua marca parecer amadora",
     painHook:
       "Cada peça parece de uma empresa diferente — isso corrói a confiança antes mesmo do cliente falar com você.",
@@ -203,7 +197,6 @@ export const SERVICES: Record<string, ServiceContent> = {
   },
   "brand-guide": {
     slug: "brand-guide",
-    eyebrow: "Brand Guide",
     title: "Sem um guia de marca, cada pessoa interpreta sua identidade do jeito que quiser",
     painHook:
       "Se você precisa explicar sua marca do zero pra cada fornecedor novo, é sinal de que ela nunca foi documentada de verdade.",

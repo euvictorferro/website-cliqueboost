@@ -1,39 +1,37 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Caveat, Geist } from "next/font/google";
+import { Montserrat, Roboto } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Grain } from "@/components/Grain";
 import { CustomCursor } from "@/components/CustomCursor";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({
+const display = Montserrat({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
 });
 
-const body = Geist({
+const body = Roboto({
   variable: "--font-body",
   subsets: ["latin"],
-});
-
-const script = Caveat({
-  variable: "--font-script",
-  subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Clique Boost — Marketing integrado para o seu negócio",
+  title: "Clique Boost — Acelerando o seu sonho americano",
   description:
-    "Websites, Tráfego, Social Media, Automações com IA, Design Gráfico e Brand Guide — integrados no método BoostConnect.",
+    "Websites, Tráfego Pago, Social Media, Automação, Design e Brand Guidelines — integrados no método BoostConnect para empreendedores brasileiros nos EUA.",
+  icons: {
+    icon: "/brand/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${display.variable} ${body.variable} ${script.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Grain />

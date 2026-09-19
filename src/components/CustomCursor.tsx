@@ -59,7 +59,7 @@ export function CustomCursor() {
       />
       <div
         ref={ringRef}
-        className="fixed top-0 left-0 w-7 h-7 rounded-full border border-[var(--cb-violet)] pointer-events-none z-[70] -translate-x-1/2 -translate-y-1/2 transition-[width,height,opacity] duration-200"
+        className="fixed top-0 left-0 w-7 h-7 rounded-full border border-[var(--cb-purple)] pointer-events-none z-[70] -translate-x-1/2 -translate-y-1/2 transition-[width,height,opacity] duration-200"
       />
     </div>
   );
