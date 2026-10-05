@@ -26,7 +26,7 @@ export function FlowLoop({
           {items.map((item, i) => (
             <li key={item.title} className="relative">
               <Reveal delay={i * 0.12} className="h-full">
-                <div className={`h-full rounded-[20px] p-8 md:p-9 ${i === last ? "cb-border-gradient" : "cb-panel"}`}>
+                <div className={`h-full rounded-[20px] p-8 md:p-9 cb-panel ${i === last ? "!border-[var(--cb-fg)]/40 bg-[var(--cb-panel-raised)]" : ""}`}>
                   <h3 className="text-xl md:text-2xl mb-3">{item.title}</h3>
                   <p className="text-[var(--cb-muted)] leading-relaxed">{item.description}</p>
                 </div>
@@ -46,23 +46,17 @@ export function FlowLoop({
         {/* Retorno: da última etapa de volta para a primeira. */}
         <div className="relative hidden md:block h-24 mt-3" aria-hidden>
           <svg viewBox="0 0 1000 96" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
-            <defs>
-              <linearGradient id="loop-g" x1="1" y1="0" x2="0" y2="0">
-                <stop offset="0%" stopColor="#8a2be2" />
-                <stop offset="100%" stopColor="#0a6ef0" />
-              </linearGradient>
-            </defs>
             <path
               className="cb-flow"
               d="M 833 2 C 833 96, 167 96, 167 8"
               fill="none"
-              stroke="url(#loop-g)"
+              stroke="rgba(255,255,255,0.45)"
               strokeWidth="2"
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#0a6ef0" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="absolute left-[16.667%] top-0 -translate-x-1/2 -translate-y-1/2">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="absolute left-[16.667%] top-0 -translate-x-1/2 -translate-y-1/2">
             <path d="M6 15l6-6 6 6" />
           </svg>
         </div>

@@ -17,10 +17,10 @@ export function HeroTitle({ lines, accentLine }: { lines: string[]; accentLine?:
   }, []);
 
   return (
-    <h1 ref={ref} className="text-[2.5rem] sm:text-6xl lg:text-7xl xl:text-8xl mb-8">
+    <h1 ref={ref} className="text-[3.25rem] sm:text-7xl lg:text-8xl mb-8">
       {lines.map((line, i) => (
         <span key={line} className="block overflow-hidden pb-[0.12em]">
-          <span data-line className={`inline-block ${i === accentLine ? "cb-gradient-text" : ""}`}>
+          <span data-line className={`inline-block ${i === accentLine ? "" : "text-[var(--cb-muted)]"}`}>
             {line}
           </span>
         </span>

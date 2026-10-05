@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Montserrat, Roboto } from "next/font/google";
+import { Instrument_Serif, Geist } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Grain } from "@/components/Grain";
 import { CustomCursor } from "@/components/CustomCursor";
 import "./globals.css";
 
-const display = Montserrat({
+const display = Instrument_Serif({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  style: ["normal", "italic"],
 });
 
-const body = Roboto({
+const body = Geist({
   variable: "--font-body",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {

@@ -23,14 +23,9 @@ export function ChatPreview({
 }) {
   return (
     <div className="relative">
-      <div
-        className="absolute -inset-6 rounded-[3rem] opacity-30 blur-3xl"
-        style={{ background: "var(--cb-gradient)" }}
-        aria-hidden
-      />
       <div className="cb-panel cb-glass relative overflow-hidden shadow-2xl shadow-black/40 rounded-3xl">
         <div className="flex items-center gap-3 px-5 py-4 border-b border-[var(--cb-border)]">
-          <span className="cb-gradient-bg w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+          <span className="cb-chip w-10 h-10 rounded-full flex items-center justify-center shrink-0">
             <Image src="/brand/favicon.png" alt="" width={22} height={22} className="w-[22px] h-[22px] object-contain brightness-0 invert" />
           </span>
           <div className="min-w-0">
@@ -75,9 +70,9 @@ export function ChatPreview({
             <button
               disabled
               aria-label="Enviar"
-              className="cb-gradient-bg w-11 h-11 rounded-full flex items-center justify-center opacity-50 cursor-not-allowed"
+              className="bg-[var(--cb-fg)] w-11 h-11 rounded-full flex items-center justify-center opacity-50 cursor-not-allowed"
             >
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#0b0b0d" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 19V5M5 12l7-7 7 7" />
               </svg>
             </button>

@@ -5,6 +5,7 @@ import { DashProofSection } from "./DashProofSection";
 import { ProcessSteps } from "./ProcessSteps";
 import { FinalCTA } from "./FinalCTA";
 import type { ServiceContent } from "@/content/services";
+import { SERVICE_SCREENS } from "@/content/dashScreens";
 
 export function ServicePageTemplate({ content }: { content: ServiceContent }) {
   return (
@@ -12,7 +13,7 @@ export function ServicePageTemplate({ content }: { content: ServiceContent }) {
       <ServiceHero title={content.title} painHook={content.painHook} />
       <ProblemSection title={content.problem.title} points={content.problem.points} />
       <SolutionSection title={content.solution.title} items={content.solution.items} />
-      <DashProofSection angle={content.dashAngle} />
+      <DashProofSection angle={content.dashAngle} screens={SERVICE_SCREENS[content.slug]} />
       <ProcessSteps title={content.process.title} steps={content.process.steps} />
       <FinalCTA title={content.cta.title} subtitle={content.cta.subtitle} />
     </>

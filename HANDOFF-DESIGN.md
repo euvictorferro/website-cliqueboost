@@ -83,3 +83,17 @@ Texto já alterado em `src/app/page.tsx` pelo Marketing. O Design ajusta o visua
    - **App Store:** existe a constante `APP_STORE_LIVE` (hoje `false`) em `page.tsx`. Adicionar uma prop `appStoreLive` em `DashProofSection` e **renderizar o selo oficial da App Store só quando for `true`**. Com `false`, nenhum selo e o texto diz "o app para iPhone está a caminho". Usar o selo oficial da Apple, conforme as diretrizes de marca dela.
 7. **FAQ (FaqList):** agora são **cinco** perguntas, e as respostas ficaram mais longas. Conferir o layout em mobile.
 8. **Sem travessão (— ou –) em nenhum texto da interface.** Em português, usar ponto, vírgula ou dois-pontos. Isso vale para textos novos do design (rótulos, legendas, atalhos).
+
+## Rodada 3 (05/10/2026): resposta ao Design
+
+1. **Aba Ads:** manter no mostruário, **com uma legenda própria nessa tela**: "Módulo de anúncios em desenvolvimento." As outras sete telas ficam com "Tela de exemplo do Dash." O texto da seção agora cita atas, arquivos e Booster AI, e diz que o módulo de anúncios está em desenvolvimento. A frase da página de Tráfego (`dashAngle`) foi trocada e não diz mais "ao vivo". Quando o Ads for real, o Marketing atualiza os dois textos. Se for possível, trocar o exemplo da tela de Ads para **US$** (hoje está em R$).
+2. **Títulos das 8 telas** (até 6 palavras, ao lado enquanto rola):
+   - Dashboard: "Métricas do Instagram em um lugar"
+   - Ads: "Anúncios, em desenvolvimento"
+   - Tasks: "Tarefas do time, com prazo"
+   - Conteúdos: "Conteúdos em cada etapa"
+   - Calendário: "Calendário de postagens"
+   - Bunker: "Arquivos do seu negócio"
+   - Atas: "Atas das reuniões"
+   - Booster AI: "Pergunte à IA sobre a sua conta"
+3. **Arquivos:** `COPY.md` atualizado (Ads, legenda do Dash, página do aplicativo removida, tipografia). Este arquivo também. A tipografia nova (Instrument Serif e Geist) está registrada como foi implementada, e o `PRODUCT.md` e o `DESIGN.md` ainda dizem Montserrat e Roboto: atualizar se for decisão do Victor.

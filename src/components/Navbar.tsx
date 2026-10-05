@@ -12,7 +12,6 @@ const SERVICES = [
   { href: "/servicos/automacoes", label: "Automação" },
   { href: "/servicos/design-grafico", label: "Design" },
   { href: "/servicos/brand-guide", label: "Brand Guidelines" },
-  { href: "/aplicativo", label: "Aplicativo" },
 ];
 
 const SPRING = { type: "spring" as const, bounce: 0.15, duration: 0.35 };

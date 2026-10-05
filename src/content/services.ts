@@ -69,7 +69,7 @@ export const SERVICES: Record<string, ServiceContent> = {
         { title: "Rastreamento completo", description: "Cada real investido rastreado até a conversão." },
       ],
     },
-    dashAngle: "No Tráfego, isso significa ver o desempenho das campanhas ao vivo, sem esperar relatório mensal.",
+    dashAngle: "No Tráfego, o acompanhamento das campanhas está sendo integrado ao Dash, com o módulo de anúncios em desenvolvimento.",
     process: {
       title: "Como funciona",
       steps: [

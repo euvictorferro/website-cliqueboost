@@ -2,6 +2,8 @@
 
 <!-- impeccable:product-schema 1 -->
 
+> **Decisão do Victor em 05/10/2026: a página `/aplicativo` foi removida e não faz parte deste site.** O Clique Boost Dash é o painel da própria Clique Boost e aparece na home como prova do método (mostruário com telas de exemplo). O aplicativo white-label para agências é **outro projeto**, sem relação com este site. Ignore, neste arquivo, a terceira audiência (agências B2B), o item "Aplicativo" do menu e as regras da página `/aplicativo`.
+
 ## Platform
 
 web
@@ -46,10 +48,10 @@ Um único time e um único painel centralizando todas as frentes de marketing do
 ## Brand Commitments (Brand Guidelines 2025 — oficial, substitui qualquer decisão de direção anterior)
 
 - Nome: Clique Boost. Nome do método: "BoostConnect".
-- **Tagline oficial:** "Acelerando o seu sonho americano." (usar literal, é a síntese da missão — sempre em Montserrat Bold ou destaque visual equivalente).
+- **Tagline oficial:** "Acelerando o seu sonho americano." (usar literal, é a síntese da missão — com destaque tipográfico).
 - **Paleta primária:** Future Gradient (roxo `#8A2BE2` → azul `#007BFF`, 135°), Deep Black `#151515`, Pure White `#FFFFFF`.
 - **Paleta secundária** (uso pontual, nunca como base): Accent Purple `#8A2BE2`, Accent Blue `#007BFF`, Indigo Tech `#4D54FF`, Success Green `#00C49A`, Cyber Pink `#F012BE`, Warning Yellow `#FFD700`, Neon Cyan `#00F0FF`, Error Red `#FF4136`, Teal Data `#39CCCC`, além de cinzas (Light/Mid/Dark Grey).
-- **Tipografia oficial:** Montserrat (Bold para H1, SemiBold para H2, tracking -15 no display) para títulos; Roboto Regular para corpo de texto. Isso substitui qualquer fonte usada antes (nada de fonte script/cursiva, nada de fonte industrial condensada — essas eram direções provisórias pré-brand-guidelines).
+- **Tipografia (decisão do Victor, 05/10/2026, substitui o Brand Guidelines 2025):** Instrument Serif (peso 400) para títulos e Geist para corpo. Montserrat e Roboto foram aposentadas. Nada de fonte script/cursiva nem industrial condensada.
 - **Logo:** símbolo é duas setas abstratas ("Clique" e "Boost") — seta inferior = ponto de partida/ação inicial, seta superior = crescimento acelerado/ascensão, unidas por gradiente. Variantes reais em `public/brand/`: `logo-light.png` (branca, fundo escuro — uso padrão no site, que é dark), `logo-dark.png` (preta, fundo claro), `favicon.png` (símbolo isolado).
 - **Persona:** "Empreendedor Brasileiro nos EUA" — perfil oficial documentado (ver seção Users).
 - **Visão:** ser a agência de marketing de referência para a comunidade brasileira nos EUA, reconhecida por gerar resultados de vendas exponenciais e ser parceiro estratégico essencial.
@@ -68,7 +70,7 @@ Um único time e um único painel centralizando todas as frentes de marketing do
 
 1. O site deve funcionar em dois modos de uso: apresentado por um consultor em call e navegado sozinho.
 2. A percepção de "método único" (BoostConnect) é a espinha dorsal da narrativa da home, não só um item de menu.
-3. A partir desta revisão, a identidade visual **segue o Brand Guidelines 2025 oficial** — não é mais uma direção de design inventada; gradiente/preto/branco/Montserrat/Roboto são compromisso de marca, não escolha estética livre.
+3. A partir desta revisão, a identidade visual **segue o Brand Guidelines 2025 oficial** — não é mais uma direção de design inventada; gradiente/preto/branco são compromisso de marca (a tipografia foi trocada por decisão do Victor, ver acima), não escolha estética livre.
 4. A página `/aplicativo` fala com outra audiência (agências) e nunca deve reaproveitar o `ServicePageTemplate` das páginas de serviço B2C.
 5. Honestidade sobre o estágio do produto B2B: "fundação em produção real, abertura para outras agências em breve" — nunca "disponível agora" enquanto não for.
 6. Não deve parecer "gerado por IA": zero clichês de landing page genérica.

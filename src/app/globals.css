@@ -25,21 +25,28 @@
   --font-display: var(--font-display);
 }
 
-h1, h2, h3 {
-  font-family: var(--font-display), var(--font-body), sans-serif;
+h1, h2 {
+  font-family: var(--font-display), Georgia, serif;
+  text-wrap: balance;
+}
+
+/* Instrument Serif só existe em peso 400: nunca pedir negrito, o navegador fabricaria um falso. */
+h3 {
+  font-family: var(--font-body), sans-serif;
 }
 
 /* Optical sizing per Apple Design skill: tracking is size-specific, never one value */
 h1, .cb-display-xl {
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1;
 }
 
 h2, .cb-display-lg {
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.08;
+  font-size: clamp(2.5rem, 4.6vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
 }
 
 h3 {
@@ -64,13 +71,6 @@ body {
   color: var(--cb-fg);
 }
 
-.cb-gradient-text {
-  background: var(--cb-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
 .cb-gradient-bg {
   /* Extremo azul levemente mais escuro (#0a6ef0): texto branco sobe de 4,0:1 para 4,7:1 (WCAG AA). */
   background: linear-gradient(135deg, #8a2be2 0%, #0a6ef0 100%);
@@ -90,8 +90,9 @@ body {
 }
 
 .cb-noise {
-  background-image: radial-gradient(circle at 15% 10%, rgba(138, 43, 226, 0.16), transparent 45%),
-    radial-gradient(circle at 85% 60%, rgba(0, 123, 255, 0.14), transparent 50%);
+  /* Luz neutra e quase imperceptível: o degradê da marca fica só nos botões de ação e no logo. */
+  background-image: radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.06), transparent 50%),
+    radial-gradient(circle at 90% 70%, rgba(160, 170, 200, 0.05), transparent 55%);
 }
 
 .cb-grain {
@@ -162,11 +163,6 @@ body {
   opacity: 0.55;
 }
 
-/* Borda em gradiente (sem borda grossa colorida): preenchimento interno + gradiente na borda. */
-.cb-border-gradient {
-  border: 1px solid transparent;
-  background: linear-gradient(var(--cb-panel), var(--cb-panel)) padding-box, linear-gradient(135deg, #8a2be2, #0a6ef0) border-box;
-}
 
 /* Retorno do ciclo: tracejado que corre. */
 @keyframes cb-flow {
@@ -178,3 +174,10 @@ body {
   from { opacity: 0; transform: translateY(-4px); }
 }
 .cb-faq-body { animation: cb-fade-in 320ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* Marcador neutro (números, ícones, avatar): substitui o degradê fora dos botões de ação. */
+.cb-chip {
+  background: var(--cb-panel-raised);
+  border: 1px solid var(--cb-border-strong);
+  color: var(--cb-fg);
+}

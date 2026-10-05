@@ -1,6 +1,6 @@
 ---
 name: Clique Boost — Brand Guidelines 2025
-description: Official brand system (gradient, black, white, Montserrat/Roboto) — replaces the earlier invented "breaker panel" direction now that real brand guidelines exist.
+description: Official brand system (gradient, black, white, Instrument Serif/Geist since 05/10/2026) — replaces the earlier invented "breaker panel" direction now that real brand guidelines exist.
 colors:
   bg: "#0b0b0d"
   panel: "#151515"
@@ -14,12 +14,12 @@ colors:
   border-strong: "rgba(255, 255, 255, 0.2)"
 typography:
   display:
-    fontFamily: "Montserrat, Arial, sans-serif"
-    h1Weight: 700
-    h2Weight: 600
+    fontFamily: "Instrument Serif, Georgia, serif"
+    h1Weight: 400
+    h2Weight: 400
     letterSpacing: "-15 (brand spec) / -0.02em to -0.03em (web equivalent)"
   body:
-    fontFamily: "Roboto, Arial, sans-serif"
+    fontFamily: "Geist, Arial, sans-serif"
     fontWeight: 400
 rounded:
   panel: "20px"
@@ -48,7 +48,7 @@ Primary: Deep Black `#151515` (site background, slightly deepened to `#0b0b0d` f
 
 ## Typography
 
-Montserrat (Bold for H1, SemiBold for H2) for all display type; Roboto Regular for body copy. This replaces both the original Bricolage Grotesque/Caveat pairing and the later Big Shoulders/Space Mono industrial pairing. Per the Apple Design skill's optical-sizing guidance, tracking is size-specific: large display headings use `-0.02em` to `-0.03em` (approximating the brand spec's `-15` tracking value), body text stays near `0`. **Headlines are normal/title case, never uppercase** — the brand's own materials (tagline, section titles) are never set in all-caps; the earlier industrial world's uppercase convention is retired.
+**Decisão do Victor em 05/10/2026: a tipografia deixa de ser Montserrat e Roboto e passa a ser a do Monologue.** Instrument Serif para títulos (h1 e h2, sempre peso 400, a fonte só existe nesse peso; itálico disponível para ênfase) e Geist para corpo e títulos pequenos (h3 em peso 600). A DM Mono do Monologue não é usada. Tracking: -0.035em no h1, -0.025em no h2. Títulos em caixa normal, nunca em caixa alta. Nunca pedir negrito na Instrument Serif.
 
 ## Layout
 
@@ -68,7 +68,7 @@ Per the Apple Design skill: translucent chrome, not opaque bars. `.cb-glass` (`b
 - **ServiceCard** (`src/components/ServiceCard.tsx`): replaces the retired `Breaker` component. A `motion`-driven panel with spring lift on hover and press-scale feedback (per Apple Design skill: respond on press, not release).
 - **ValuesSlider** (`src/components/ValuesSlider.tsx`, homepage only): a horizontally draggable carousel of the brand's official five values (Inovação na Prática, Transparência Radical, Parceria Genuína, Agilidade e Proatividade, Overdelivery como Padrão — sourced from the Brand Guidelines, not invented). Built with `motion`'s `drag="x"` + `dragElastic` + `dragTransition` (power/timeConstant) to get real momentum deceleration and rubber-band resistance at the edges, per the Apple Design skill's direct-manipulation and momentum-projection principles — this is the site's one genuinely gesture-driven surface, not just an entrance-reveal spring.
 - **ServiceHero / ProblemSection / SolutionSection / ProcessSteps / DashProofSection / FinalCTA**: all rebuilt off industrial styling onto the official system — gradient dot bullets for pain points, gradient-filled numbered circles for solution items and process steps (echoing the brand guideline's own circle-based "Valores" graphic), pill CTA buttons.
-- **`/aplicativo`**: a dedicated page, deliberately not built from `ServicePageTemplate` — different audience (agencies, not end clients), different proof point (production-real feature list sourced from the actual `dashboard_cliqueboost` codebase, not invented SaaS claims), different CTA (waitlist language, not "falar com consultor").
+- **`/aplicativo`**: removida em 05/10/2026 (o aplicativo white-label é outro projeto, fora deste site).
 
 ## Do's and Don'ts
 
@@ -76,8 +76,6 @@ Per the Apple Design skill: translucent chrome, not opaque bars. `.cb-glass` (`b
 - Do keep gradient usage restrained: buttons, numbered badges, and at most one accent phrase per section — never a full paragraph or every heading.
 - Do keep headlines in normal/title case.
 - Don't reintroduce the industrial breaker-panel world (LEDs, mono labels, screws, bus-bar lines) — it's fully retired.
-- Don't build the `/aplicativo` page or any future B2B surface on `ServicePageTemplate`.
-- Don't claim the B2B multi-tenant program is available for self-signup today — PRODUCT.md records it as foundation-in-production, not yet opened.
 
 ## Provenance note
 

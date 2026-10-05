@@ -16,13 +16,13 @@ export function ProcessSteps({
         <div className="relative flex flex-col">
           <div
             className="absolute left-6 top-6 bottom-6 w-px"
-            style={{ background: "linear-gradient(180deg, var(--cb-purple), var(--cb-blue))" }}
+            style={{ background: "var(--cb-border-strong)" }}
             aria-hidden
           />
           {steps.map((step, i) => (
             <Reveal key={step.title} delay={i * 0.1}>
               <div className="relative flex gap-6 md:gap-10 py-8">
-                <span className="cb-gradient-bg relative z-10 flex items-center justify-center shrink-0 w-12 h-12 rounded-full text-white font-bold">
+                <span className="cb-chip relative z-10 flex items-center justify-center shrink-0 w-12 h-12 rounded-full font-bold">
                   {i + 1}
                 </span>
                 <div className="pt-1.5">

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
-import { ValuesSlider } from "@/components/ValuesSlider";
+import { WeightLift } from "@/components/WeightLift";
 import { FlowLoop } from "@/components/FlowLoop";
 import { FaqList } from "@/components/FaqList";
 import { StepsRow } from "@/components/StepsRow";
@@ -12,6 +12,9 @@ import { ChatPreview } from "@/components/ChatPreview";
 import { ViralCases } from "@/components/ViralCases";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Liquid } from "@/components/canvasui/Liquid";
+import { DashMobileSection } from "@/components/DashMobileSection";
+import { Testimonials } from "@/components/Testimonials";
+import { MOBILE_SCREENS } from "@/content/dashMobile";
 
 /** Ligar (true) só quando o app estiver publicado na App Store. Enquanto for false: texto "a caminho" e nenhum selo. */
 const APP_STORE_LIVE = false;
@@ -22,7 +25,7 @@ export default function Home() {
       <section className="relative cb-noise overflow-hidden">
         <HeroBackdrop />
         {/* Canvas UI (MIT + Commons Clause): uso no site é permitido, revenda não. */}
-        <Liquid className="cb-liquid relative" color={[0.54, 0.17, 0.89]} radius={0.1} force={0.6} intensity={0.8} densityDissipation={0.93}>
+        <Liquid className="cb-liquid relative" color={[0.7, 0.72, 0.8]} radius={0.1} force={0.6} intensity={0.55} densityDissipation={0.93}>
         <div className="min-h-screen flex flex-col justify-center px-6 md:px-10 pt-24">
         <Reveal className="relative max-w-5xl">
           <HeroTitle
@@ -136,11 +139,12 @@ export default function Home() {
 
       <DashProofSection
         tone="base"
-        appStoreLive={APP_STORE_LIVE}
         angle={APP_STORE_LIVE ? "Funciona no navegador e no celular, e o app está disponível na App Store." : "Funciona no navegador e no celular, e o app para iPhone está a caminho."}
       />
 
-      <ValuesSlider />
+      <DashMobileSection screens={MOBILE_SCREENS} live={APP_STORE_LIVE} />
+
+      <WeightLift title="O que você deixa de carregar" />
 
       <FaqList
         title="Perguntas que todo mundo faz"
@@ -177,6 +181,8 @@ export default function Home() {
           { title: "Acompanhamento", description: "Um painel, um time, uma estratégia." },
         ]}
       />
+
+      <Testimonials />
 
       <FinalCTA
         title="Vamos olhar como o seu contato é atendido hoje?"

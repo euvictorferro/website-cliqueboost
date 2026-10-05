@@ -21,7 +21,7 @@ export function FaqList({
               <details key={item.title} name="faq" open={i === 0} className="group">
                 <summary className="flex items-center justify-between gap-6 py-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                   <h3 className="text-xl md:text-2xl">{item.title}</h3>
-                  <span className="shrink-0 w-10 h-10 rounded-full border border-[var(--cb-border-strong)] flex items-center justify-center transition-[transform,background] duration-300 group-open:rotate-45 group-open:bg-[linear-gradient(135deg,#8a2be2,#0a6ef0)] group-open:border-transparent">
+                  <span className="shrink-0 w-10 h-10 rounded-full border border-[var(--cb-border-strong)] flex items-center justify-center transition-[transform,background] duration-300 group-open:rotate-45 group-open:bg-[var(--cb-fg)] group-open:text-[#0b0b0d] group-open:border-transparent">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden>
                       <path d="M12 5v14M5 12h14" />
                     </svg>

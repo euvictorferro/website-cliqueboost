@@ -20,7 +20,7 @@ export function ServiceCard({
       className="h-full"
     >
       <Link href={href} className="cb-panel group block p-8 h-full">
-        <h3 className="text-xl mb-3 group-hover:cb-gradient-text transition-colors">{title}</h3>
+        <h3 className="text-xl mb-3 transition-colors">{title}</h3>
         <p className="text-[var(--cb-muted)] leading-relaxed">{description}</p>
       </Link>
     </motion.div>

@@ -23,7 +23,7 @@ export function ViralCases({
                 <h3 className="text-xl md:text-2xl">{c.title}</h3>
                 <p className="text-[var(--cb-muted)] leading-relaxed">{c.description}</p>
                 <p className="mt-auto pt-6 border-t border-[var(--cb-border)] flex items-baseline gap-2">
-                  <span className="text-2xl font-bold" style={{ fontFamily: "var(--font-display)" }}>
+                  <span className="text-2xl font-semibold">
                     {c.metric}
                   </span>
                   <span className="text-[var(--cb-muted)]">{c.unit}</span>
@@ -32,7 +32,7 @@ export function ViralCases({
             </Reveal>
           ))}
         </div>
-        <p className="mt-10 max-w-2xl border-l border-[var(--cb-purple)] pl-5 text-base text-[#b8b8c0] leading-relaxed">
+        <p className="mt-10 max-w-2xl border-l border-[var(--cb-border-strong)] pl-5 text-base text-[#b8b8c0] leading-relaxed">
           {note}
         </p>
       </div>

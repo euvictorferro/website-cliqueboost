@@ -17,7 +17,7 @@ export function ProblemSection({
           {points.map((p, i) => (
             <Reveal key={p} delay={i * 0.08}>
               <div className="flex items-start gap-4 py-2">
-                <span className="mt-2.5 w-1.5 h-1.5 rounded-full cb-gradient-bg shrink-0" aria-hidden />
+                <span className="mt-2.5 w-1.5 h-1.5 rounded-full bg-[var(--cb-fg)]/60 shrink-0" aria-hidden />
                 <p className="text-lg md:text-xl text-[var(--cb-muted)]">{p}</p>
               </div>
             </Reveal>

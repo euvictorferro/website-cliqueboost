@@ -83,18 +83,7 @@ export function CycleSystem({
         <div className="grid md:grid-cols-[minmax(0,400px)_1fr] gap-12 md:gap-24 items-center">
           <Reveal y={30}>
             <div className="relative mx-auto w-full max-w-[380px] aspect-square">
-              <div
-                className="absolute inset-[18%] rounded-full opacity-40 blur-3xl"
-                style={{ background: "var(--cb-gradient)" }}
-                aria-hidden
-              />
               <svg viewBox="0 0 400 400" className="relative w-full h-full" aria-hidden>
-                <defs>
-                  <linearGradient id="cyc-g" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#8a2be2" />
-                    <stop offset="100%" stopColor="#007bff" />
-                  </linearGradient>
-                </defs>
                 <circle cx={C} cy={C} r={R + 36} fill="none" stroke="var(--cb-border)" strokeDasharray="2 8" strokeLinecap="round" />
                 <circle cx={C} cy={C} r={R} fill="none" stroke="var(--cb-border-strong)" strokeWidth="1.5" />
                 <circle
@@ -103,7 +92,7 @@ export function CycleSystem({
                   cy={C}
                   r={R}
                   fill="none"
-                  stroke="url(#cyc-g)"
+                  stroke="#fff"
                   strokeWidth="3"
                   strokeLinecap="round"
                   strokeDasharray={CIRC}
@@ -118,7 +107,7 @@ export function CycleSystem({
                         cx={p.x}
                         cy={p.y}
                         r="26"
-                        fill="url(#cyc-g)"
+                        fill="#fff"
                         style={{ opacity: on ? 1 : 0, transition: "opacity 400ms" }}
                       />
                       <text
@@ -126,10 +115,10 @@ export function CycleSystem({
                         y={p.y}
                         textAnchor="middle"
                         dominantBaseline="central"
-                        fill="#fff"
+                        fill={on ? "#0b0b0d" : "#fff"}
                         fontWeight="700"
                         fontSize="18"
-                        style={{ fontFamily: "var(--font-display)" }}
+                        style={{ fontFamily: "var(--font-body)" }}
                       >
                         {i + 1}
                       </text>
@@ -168,7 +157,7 @@ export function CycleSystem({
                       }}
                     >
                       <span
-                        className="cb-gradient-bg shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+                        className="cb-chip shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold"
                         aria-hidden
                       >
                         {i + 1}

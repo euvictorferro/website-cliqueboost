@@ -18,7 +18,7 @@ export function SolutionSection({
             <Reveal key={item.title} delay={i * 0.1}>
               <div className="cb-panel bg-[var(--cb-panel-raised)] p-8 h-full transition-transform duration-300 hover:-translate-y-1">
                 <div
-                  className="cb-gradient-bg w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white mb-5"
+                  className="cb-chip w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold mb-5"
                   aria-hidden
                 >
                   {i + 1}

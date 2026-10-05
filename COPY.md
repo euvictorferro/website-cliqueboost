@@ -13,12 +13,12 @@ Quem cuida do design não altera texto, só layout e estilo. Se um bloco precisa
 - Número de clientes, faturamento, caso ou depoimento. Não há nenhum autorizado.
 - Nome de cliente. Nome de concorrente. Afirmação de que concorrentes não têm algo.
 - Política ou imigração.
-- Que o Dash mostra "tudo": o módulo de Ads ainda é mockado. Dizer "métricas do Instagram, conteúdo, tarefas e calendário".
+- Que o Dash mostra o desempenho dos anúncios ou das campanhas "ao vivo": o módulo de **Ads ainda é mockado**. A tela de Ads só aparece com a legenda "Módulo de anúncios em desenvolvimento". Quando o módulo for real e conectado a conta de anúncios, atualizar este item e a frase da página de Tráfego (`dashAngle` em `services.ts`).
 - Funcionalidades do app para agências (SaaS), app iOS ou geração automática de campanha como disponíveis.
 
 ## Sempre
 - IA se apresenta como IA. Atendimento com IA "responde e qualifica", e uma pessoa fecha.
-- Dados de exemplo do Dash só com selo "DADOS ILUSTRATIVOS" (imagens higienizadas em `Empresa/Marketing/Vitrine` do vault).
+- As telas de exemplo do Dash levam a legenda "Tela de exemplo do Dash." sob a moldura (decisão de 05/10/2026, no lugar do selo sobre a imagem). Sem número apresentado como resultado de cliente.
 - Português do Brasil, tom direto, sem jargão e sem as palavras banidas do `PRODUCT.md`.
 
 ## Domínio
@@ -26,6 +26,7 @@ Quem cuida do design não altera texto, só layout e estilo. Se um bloco precisa
 
 ## Pendências de copy (não alteradas ainda)
 - `src/content/services.ts`: páginas de serviço têm frases como "seus concorrentes já automatizaram isso" e "não viu retorno claro". Revisar.
-- `src/app/aplicativo/page.tsx` (B2B para agências): o SaaS está estacionado. Considerar tirar "Aplicativo" do menu até estar pronto.
-- Placeholders "Mockup do painel" em `DashProofSection`: trocar pelas telas ilustrativas, com selo.
+- A página do aplicativo (B2B para agências) e o item de menu foram **removidos** em 05/10/2026: SaaS fora do site por enquanto.
+- Tipografia: o Design trocou para Instrument Serif (títulos) e Geist (texto), diferente do Brand Guidelines 2025 (Montserrat e Roboto). Registrado como foi implementado. Confirmar que é decisão do Victor e atualizar `PRODUCT.md` e `DESIGN.md`.
+- Tela de Ads: está no mostruário a pedido do Victor. Valores em R$ e "Melhor desempenho" são de exemplo. Para o público dos EUA, preferir exemplo em US$.
 - Número de WhatsApp no site (`+1 239 375 0915`): confirmar se é o canal certo.
