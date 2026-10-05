@@ -51,7 +51,7 @@ export const SERVICES: Record<string, ServiceContent> = {
     slug: "trafego",
     title: "Investir em anúncio sem estratégia é queimar dinheiro",
     painHook:
-      "Você já colocou dinheiro em anúncio e não viu retorno claro — o problema quase nunca é o orçamento, é a estrutura por trás dele.",
+      "Você já colocou dinheiro em anúncio e não viu retorno claro. O problema quase nunca é o orçamento, é a estrutura por trás dele.",
     problem: {
       title: "Campanhas sem estratégia geram cliques, não clientes",
       points: [
@@ -88,7 +88,7 @@ export const SERVICES: Record<string, ServiceContent> = {
     slug: "social-media",
     title: "Postar sem estratégia é só ruído, não crescimento",
     painHook:
-      "Você posta, mas o perfil não cresce e não gera venda — o problema é a ausência de um sistema por trás do conteúdo.",
+      "Você posta, mas o perfil não cresce e não gera venda. O problema é a ausência de um sistema por trás do conteúdo.",
     problem: {
       title: "Conteúdo sem consistência não constrói autoridade",
       points: [
@@ -162,7 +162,7 @@ export const SERVICES: Record<string, ServiceContent> = {
     slug: "design-grafico",
     title: "Visual inconsistente faz sua marca parecer amadora",
     painHook:
-      "Cada peça parece de uma empresa diferente — isso corrói a confiança antes mesmo do cliente falar com você.",
+      "Cada peça parece de uma empresa diferente. Isso corrói a confiança antes mesmo do cliente falar com você.",
     problem: {
       title: "Sem padrão visual, a marca perde força",
       points: [

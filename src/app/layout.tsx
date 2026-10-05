@@ -19,9 +19,9 @@ const body = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Clique Boost — Acelerando o seu sonho americano",
+  title: "Clique Boost | Marketing para brasileiros nos EUA",
   description:
-    "Websites, Tráfego Pago, Social Media, Automação, Design e Brand Guidelines — integrados no método BoostConnect para empreendedores brasileiros nos EUA.",
+    "Anúncios, atendimento com IA, social media, sites, design e brand guidelines integrados no método BoostConnect, para profissionais brasileiros nos EUA.",
   icons: {
     icon: "/brand/favicon.png",
   },

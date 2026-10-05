@@ -5,21 +5,21 @@ import { motion } from "motion/react";
 import { Reveal } from "./Reveal";
 
 const VALUES = [
-  { title: "Inovação na Prática", description: "Tecnologia e IA aplicadas a processos reais, não a slides de apresentação." },
-  { title: "Transparência Radical", description: "Custos, prazos e resultados sempre visíveis — sem letra miúda." },
-  { title: "Parceria Genuína", description: "Enxergamos o seu negócio inteiro, não só a tarefa do mês." },
-  { title: "Agilidade e Proatividade", description: "A gente resolve antes de você precisar pedir." },
-  { title: "Overdelivery como Padrão", description: "Entregar exatamente o combinado é o mínimo — a régua é mais alta." },
+  { title: "Responder tudo na mão", description: "A IA responde e qualifica o contato. Você entra quando ele está pronto." },
+  { title: "Juntar fornecedores", description: "Anúncio, conteúdo, site e atendimento com um time só." },
+  { title: "Montar relatório", description: "Você acompanha pelo Dash: métricas do Instagram, conteúdo, tarefas e calendário." },
+  { title: "Correr atrás de prazo", description: "Prazos combinados e retorno rápido dentro do horário comercial." },
+  { title: "Aprender tecnologia", description: "A gente cuida da IA e das ferramentas. Você cuida do seu negócio." },
 ];
 
 export function ValuesSlider() {
   const constraintsRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="py-28 overflow-hidden">
+    <section className="py-28 overflow-hidden bg-[var(--cb-panel)]">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
         <Reveal className="mb-14 max-w-2xl">
-          <h2 className="text-4xl md:text-6xl">O que não muda, negócio nenhum</h2>
+          <h2 className="text-4xl md:text-6xl">O que você deixa de carregar</h2>
         </Reveal>
       </div>
       <div ref={constraintsRef} className="px-6 md:px-10">

@@ -3,7 +3,7 @@ import { Reveal } from "@/components/Reveal";
 import { FinalCTA } from "@/components/FinalCTA";
 
 const FEATURES = [
-  { title: "Métricas em tempo real", description: "Dado real do Instagram via Meta Graph API — não é maquete, é produção." },
+  { title: "Métricas em tempo real", description: "Dado real do Instagram via Meta Graph API. Não é maquete, é produção." },
   { title: "Board de conteúdo", description: "Aprovação e organização de conteúdo integradas ao fluxo do cliente." },
   { title: "Tarefas", description: "Tarefas do time centralizadas e visíveis pro cliente, sem planilha solta." },
   { title: "Calendário", description: "Calendário de postagens compartilhado entre agência e cliente." },
@@ -30,7 +30,7 @@ export default function AplicativoPage() {
           </h1>
           <p className="text-xl md:text-2xl text-[var(--cb-muted)] max-w-2xl mb-10">
             Um hub onde o cliente acompanha tudo da própria agência num só lugar, e a agência
-            opera com um agente de IA cuidando da estratégia — o mesmo software que já roda a
+            opera com um agente de IA cuidando da estratégia, o mesmo software que já roda a
             Clique Boost, em produção real, abrindo para outras agências usarem com a própria
             marca.
           </p>
@@ -51,7 +51,7 @@ export default function AplicativoPage() {
           <Reveal className="mb-14 max-w-2xl">
             <h2 className="text-3xl md:text-5xl mb-4">Um hub, dois lados</h2>
             <p className="text-[var(--cb-muted)] text-lg">
-              Para onde o Aplicativo está indo — parte já em produção, parte em construção.
+              Para onde o Aplicativo está indo: parte já em produção, parte em construção.
             </p>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-6">
@@ -97,7 +97,7 @@ export default function AplicativoPage() {
             </h2>
             <p className="text-lg text-[var(--cb-muted)] max-w-2xl">
               O painel roda hoje em <strong className="text-[var(--cb-fg)]">dash.cliqueboost.io</strong>,
-              atendendo clientes reais da Clique Boost com dado real do Instagram — cada
+              atendendo clientes reais da Clique Boost com dado real do Instagram. Cada
               funcionalidade abaixo já está em uso, não é conceito.
             </p>
           </Reveal>
@@ -124,7 +124,7 @@ export default function AplicativoPage() {
           <Reveal>
             <h2 className="text-3xl md:text-5xl mb-6">White-label: a marca é sua</h2>
             <p className="text-[var(--cb-muted)] text-lg leading-relaxed">
-              Sua agência licencia o painel com a sua própria identidade — a Clique Boost é a
+              Sua agência licencia o painel com a sua própria identidade. A Clique Boost é a
               tecnologia por trás, invisível para o seu cliente final. A base multi-tenant já
               está em construção sobre a mesma infraestrutura que atende nossos clientes hoje;
               a abertura para novas agências parceiras acontece em ondas, não em cadastro
@@ -133,7 +133,7 @@ export default function AplicativoPage() {
           </Reveal>
           <Reveal y={40} delay={0.1}>
             <div className="cb-panel cb-glass aspect-video flex items-center justify-center shadow-2xl shadow-black/40">
-              <span className="text-[var(--cb-muted)] text-sm">Mockup do painel white-label — em produção</span>
+              <span className="text-[var(--cb-muted)] text-sm">Mockup do painel white-label, em produção</span>
             </div>
           </Reveal>
         </div>

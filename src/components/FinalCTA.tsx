@@ -3,9 +3,9 @@ import { Reveal } from "./Reveal";
 
 export function FinalCTA({
   title = "Vamos conversar sobre o seu próximo passo?",
-  subtitle = "Fale com um consultor da Clique Boost e descubra o melhor caminho para o seu negócio.",
-  ctaLabel = "Falar com um consultor",
-  href = "https://wa.me/12393750915",
+  subtitle = "Agende uma conversa com a Clique Boost e descubra o melhor caminho para o seu negócio.",
+  ctaLabel = "Agendar uma conversa",
+  href = "https://cal.com/victor-clique-boost-jelawr/30min",
 }: {
   title?: string;
   subtitle?: string;

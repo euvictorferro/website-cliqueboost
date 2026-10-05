@@ -50,7 +50,7 @@ export function Navbar() {
           scrolled ? "h-16" : "h-20"
         }`}
       >
-        <Link href="/" onClick={() => setOpen(false)}>
+        <Link href="/" onClick={() => setOpen(false)} className="inline-flex items-center py-2.5 -my-2.5">
           <Logo size={26} />
         </Link>
 
@@ -64,7 +64,7 @@ export function Navbar() {
               type="button"
               onClick={() => setServicesOpen((v) => !v)}
               aria-expanded={servicesOpen}
-              className="flex items-center gap-1.5 hover:text-[var(--cb-fg)] transition-colors cb-press"
+              className="flex items-center gap-1.5 min-h-11 hover:text-[var(--cb-fg)] transition-colors cb-press"
             >
               Serviços
               <svg
@@ -105,11 +105,11 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <Link
-            href="https://wa.me/12393750915"
+            href="https://cal.com/victor-clique-boost-jelawr/30min"
             target="_blank"
-            className="cb-gradient-bg cb-press hidden sm:inline-block text-sm font-semibold text-white px-5 py-2.5 rounded-full"
+            className="cb-gradient-bg cb-press hidden sm:inline-flex items-center min-h-11 text-sm font-semibold text-white px-5 rounded-full"
           >
-            Falar com consultor
+            Agendar uma conversa
           </Link>
           <button
             type="button"
@@ -177,12 +177,12 @@ export function Navbar() {
             ))}
           </div>
           <Link
-            href="https://wa.me/12393750915"
+            href="https://cal.com/victor-clique-boost-jelawr/30min"
             target="_blank"
             onClick={() => setOpen(false)}
             className="cb-gradient-bg mt-3 text-center font-semibold text-white px-4 py-3 rounded-full"
           >
-            Falar com consultor
+            Agendar uma conversa
           </Link>
         </div>
       </div>
