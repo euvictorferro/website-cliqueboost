@@ -97,3 +97,7 @@ Texto já alterado em `src/app/page.tsx` pelo Marketing. O Design ajusta o visua
    - Atas: "Atas das reuniões"
    - Booster AI: "Pergunte à IA sobre a sua conta"
 3. **Arquivos:** `COPY.md` atualizado (Ads, legenda do Dash, página do aplicativo removida, tipografia). Este arquivo também. A tipografia nova (Instrument Serif e Geist) está registrada como foi implementada, e o `PRODUCT.md` e o `DESIGN.md` ainda dizem Montserrat e Roboto: atualizar se for decisão do Victor.
+
+## Rodada 5 (05/10/2026): ajustes pontuais de copy
+- **Método Viral, caso do corretor em Orlando:** o número principal agora é **520 mil** (era 230 mil), com o texto atualizado. Se o número é um destaque visual, o comprimento "520 mil" é igual ao anterior. Os outros dois casos não mudaram.
+- **Tráfego e IA (FlowLoop):** o item 2 ("A IA atende e qualifica") ficou **mais longo**, porque agora traz a explicação do fluxo desenhado com o cliente. O item 3 voltou a ser "O ciclo recomeça", curto. Conferir se o item 2 cabe no loop e no mobile.

@@ -168,7 +168,7 @@ export function DashShowcase({
                     onClick={() => pick(k)}
                     className={`snap-start shrink-0 min-h-11 rounded-full px-5 text-sm font-medium border transition-colors ${
                       k === i
-                        ? "bg-[var(--cb-fg)] text-[#0b0b0d] border-transparent"
+                        ? "bg-[var(--cb-fg)] text-[var(--cb-bg)] border-transparent"
                         : "border-[var(--cb-border-strong)] text-[var(--cb-muted)] hover:text-[var(--cb-fg)]"
                     }`}
                   >
@@ -192,14 +192,14 @@ export function DashShowcase({
                     aria-label={sc.title}
                     aria-labelledby={pinned ? undefined : `dash-tab-${sc.key}`}
                     aria-hidden={k !== i}
-                    className={`cb-panel overflow-hidden flex flex-col bg-[#13151b] ${
+                    className={`cb-panel overflow-hidden flex flex-col bg-[#13151b] [:root[data-theme=light]_&]:bg-white ${
                       k === 0 ? "relative" : "absolute inset-0"
-                    } ${pinned ? "" : "transition-opacity duration-500 shadow-2xl shadow-black/40"}`}
+                    } ${pinned ? "" : "transition-opacity duration-500 shadow-2xl shadow-black/40 [:root[data-theme=light]_&]:shadow-black/10"}`}
                     style={cardStyle(k)}
                   >
                     <div className="cb-glass flex items-center gap-1.5 px-4 py-3 border-b border-[var(--cb-border)] shrink-0" aria-hidden>
                       {[0, 1, 2].map((d) => (
-                        <span key={d} className="w-2.5 h-2.5 rounded-full bg-white/15" />
+                        <span key={d} className="w-2.5 h-2.5 rounded-full bg-[var(--cb-fg)]/15" />
                       ))}
                       <span className="ml-3 text-sm font-medium text-[var(--cb-fg)]">{sc.title}</span>
                     </div>
@@ -215,11 +215,20 @@ export function DashShowcase({
                           alt={sc.alt}
                           fill
                           sizes="(min-width: 1152px) 1100px, 100vw"
-                          className="object-contain object-top"
+                          className="cb-on-dark object-contain object-top"
                           priority={k === 0}
                           loading="eager"
                           fetchPriority={k === 0 ? "high" : "low"}
                         />
+                        {sc.light && (
+                          <Image
+                            src={sc.light}
+                            alt={sc.alt}
+                            fill
+                            sizes="(min-width: 1152px) 1100px, 100vw"
+                            className="cb-on-light object-contain object-top"
+                          />
+                        )}
                       </div>
                     </div>
                   </figure>

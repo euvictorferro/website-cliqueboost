@@ -12,7 +12,25 @@
   --cb-green: #00c49a;
   --cb-border: rgba(255, 255, 255, 0.1);
   --cb-border-strong: rgba(255, 255, 255, 0.2);
+  color-scheme: dark;
 }
+
+/* Tema claro: mesmos tokens, valores invertidos. O padrão do site é o escuro. */
+:root[data-theme="light"] {
+  --cb-bg: #f7f7f5;
+  --cb-panel: #ffffff;
+  --cb-panel-raised: #efefec;
+  --cb-fg: #0b0b0d;
+  --cb-muted: #62626b;
+  --cb-border: rgba(0, 0, 0, 0.1);
+  --cb-border-strong: rgba(0, 0, 0, 0.2);
+  color-scheme: light;
+}
+
+/* Logo: a versão branca no escuro, a escura no claro. */
+.cb-logo-on-light, .cb-on-light { display: none; }
+:root[data-theme="light"] .cb-logo-on-light, :root[data-theme="light"] .cb-on-light { display: block; }
+:root[data-theme="light"] .cb-logo-on-dark, :root[data-theme="light"] .cb-on-dark { display: none; }
 
 @theme inline {
   --color-background: var(--cb-bg);
@@ -79,9 +97,16 @@ body {
 /* Translucent chrome per Apple Design skill: content scrolls under, never opaque */
 .cb-glass {
   background: rgba(11, 11, 13, 0.6);
+  /* Só a propriedade padrão: o compilador cria o prefixo -webkit- sozinho. Declarar os dois fazia ele manter só o prefixado, e o Chrome ignora esse. */
   backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
+
+:root[data-theme="light"] .cb-glass { background: rgba(247, 247, 245, 0.55); }
+
+/* Símbolo da marca e logos de clientes (brancos): ficam brancos no escuro e pretos no claro. */
+.cb-mark-fg { filter: brightness(0) invert(1); }
+:root[data-theme="light"] .cb-mark-fg,
+:root[data-theme="light"] .cb-client-logo { filter: brightness(0); }
 
 .cb-panel {
   background: var(--cb-panel);
@@ -180,4 +205,15 @@ body {
   background: var(--cb-panel-raised);
   border: 1px solid var(--cb-border-strong);
   color: var(--cb-fg);
+}
+
+/* Depoimentos em faixa contínua: a lista é duplicada e a faixa anda metade do caminho. */
+@keyframes cb-marquee {
+  to { transform: translateX(-50%); }
+}
+.cb-marquee { animation: cb-marquee var(--duration, 60s) linear infinite; }
+.cb-marquee-wrap:hover .cb-marquee { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .cb-marquee { animation: none; }
+  .cb-marquee-wrap { overflow-x: auto; }
 }

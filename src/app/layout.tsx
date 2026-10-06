@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Grain } from "@/components/Grain";
 import { CustomCursor } from "@/components/CustomCursor";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import "./globals.css";
 
 const display = Instrument_Serif({
@@ -32,13 +33,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="pt-BR"
       className={`${display.variable} ${body.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Aplica o tema salvo antes da primeira pintura, para não piscar. O padrão é o escuro. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("cb-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <Grain />
         <CustomCursor />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <ThemeToggle />
       </body>
     </html>
   );

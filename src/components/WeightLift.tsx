@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import ParticleObject from "@/components/canvasui/ParticleObject";
+import { useSmall } from "@/lib/use-small";
 import { Reveal } from "./Reveal";
 
 const ITEMS = [
@@ -25,6 +26,7 @@ const SHIFT = [10, -12, 6, -8, 4]; // deslocamento lateral de cada bloco na pilh
  */
 export function WeightLift({ title }: { title: string }) {
   const n = ITEMS.length;
+  const small = useSmall();
   const [phase, setPhase] = useState(-1); // -1 parado, 0..n-1 blocos já retirados (inclusive), n = tudo livre
   const [inView, setInView] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -57,7 +59,6 @@ export function WeightLift({ title }: { title: string }) {
   }, [inView, n]);
 
   const free = phase === n;
-  const pileH = BLOCK_H + (n - 1) * OVERLAP;
 
   return (
     <section className="py-28 px-6 md:px-10 bg-[var(--cb-panel)]">
@@ -68,7 +69,7 @@ export function WeightLift({ title }: { title: string }) {
 
         <div ref={ref} className="grid md:grid-cols-[1fr_1.15fr] gap-12 md:gap-20 items-center">
           {/* A pilha. O primeiro item é o bloco do topo, então sai primeiro. */}
-          <div className="relative mx-auto w-full max-w-md" style={{ height: pileH + 130 }} aria-hidden>
+          <div className="relative mx-auto w-full max-w-lg md:max-w-xl h-[27.5rem] md:h-[38rem]" aria-hidden>
             <div className="absolute inset-x-0 bottom-0 h-px bg-[var(--cb-border-strong)]" />
             {ITEMS.map((it, k) => {
               const lifted = phase >= k;
@@ -76,7 +77,7 @@ export function WeightLift({ title }: { title: string }) {
               return (
                 <div
                   key={it.title}
-                  className="absolute left-[6%] right-[6%] flex items-center rounded-2xl border border-[var(--cb-border-strong)] bg-[var(--cb-panel-raised)] px-6 font-semibold shadow-xl shadow-black/50"
+                  className="absolute left-[6%] right-[6%] flex items-center rounded-2xl border border-[var(--cb-border-strong)] bg-[var(--cb-panel-raised)] px-6 font-semibold shadow-xl shadow-black/50 [:root[data-theme=light]_&]:shadow-black/8"
                   style={{
                     bottom,
                     height: BLOCK_H,
@@ -92,20 +93,42 @@ export function WeightLift({ title }: { title: string }) {
                 </div>
               );
             })}
-            {/* Símbolo da marca, no espaço que ficou livre. */}
-            <Image
-              src="/brand/favicon.png"
-              alt=""
-              width={72}
-              height={72}
-              className="absolute left-1/2 w-[72px] h-[72px] object-contain -translate-x-1/2"
+            {/* O símbolo da marca, em partículas e grande, no espaço que ficou livre. */}
+            <div
+              className="absolute inset-0"
               style={{
-                bottom: 28,
                 opacity: free ? 1 : 0,
-                transform: `translate(-50%, ${free ? 0 : 24}px)`,
-                transition: "opacity 900ms, transform 1100ms cubic-bezier(0.16, 1, 0.3, 1)",
+                transform: free ? "scale(1)" : "scale(0.8)",
+                pointerEvents: free && !small ? "auto" : "none",
+                transition: "opacity 1200ms ease-out, transform 1400ms cubic-bezier(0.16, 1, 0.3, 1)",
               }}
-            />
+              // O componente guarda a posição do quadro para ler o mouse e só a atualiza em resize e scroll.
+              // Quando a animação de entrada termina, avisamos que o quadro mudou de tamanho.
+              onTransitionEnd={(e) => {
+                if (e.propertyName === "transform") window.dispatchEvent(new Event("resize"));
+              }}
+            >
+              <ParticleObject
+                className="h-full w-full"
+                src="/brand/favicon.png"
+                count={small ? 6000 : 13000}
+                size={small ? 2 : 2.4}
+                sizeVariance={0.5}
+                radius={small ? 0 : 150}
+                strength={1.5}
+                swirl={1}
+                spring={0.8}
+                damping={0.3}
+                drift={0.7}
+                scale={4.5}
+                cameraDistance={4.2}
+                floatIntensity={0.8}
+                rotationIntensity={0.7}
+                floatSpeed={1.3}
+                orbit={false}
+                zoom={false}
+              />
+            </div>
           </div>
 
           {/* A lista: cada linha acende quando o bloco dela sai da pilha. */}
@@ -124,7 +147,7 @@ export function WeightLift({ title }: { title: string }) {
                 >
                   <span
                     className="cb-chip shrink-0 mt-0.5 w-8 h-8 rounded-full flex items-center justify-center"
-                    style={{ background: on ? "var(--cb-fg)" : undefined, color: on ? "#0b0b0d" : undefined, transition: "background 500ms, color 500ms" }}
+                    style={{ background: on ? "var(--cb-fg)" : undefined, color: on ? "var(--cb-bg)" : undefined, transition: "background 500ms, color 500ms" }}
                     aria-hidden
                   >
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">

@@ -18,21 +18,18 @@ const COPY = {
 
 /** O aparelho já vem desenhado na própria imagem (fundo transparente): aqui só entra a sombra. */
 function Phone({ screen, className = "" }: { screen: MobileScreen; className?: string }) {
+  const cls = `w-[150px] sm:w-[200px] h-auto drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)] [:root[data-theme=light]_&]:drop-shadow-[0_24px_36px_rgba(0,0,0,0.22)] ${className}`;
   return (
-    <Image
-      src={screen.src}
-      alt={screen.alt}
-      width={720}
-      height={1561}
-      sizes="220px"
-      className={`w-[150px] sm:w-[200px] h-auto drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)] ${className}`}
-    />
+    <>
+      <Image src={screen.src} alt={screen.alt} width={720} height={1561} sizes="220px" className={`cb-on-dark ${cls}`} />
+      {screen.light && <Image src={screen.light} alt={screen.alt} width={720} height={1561} sizes="220px" className={`cb-on-light ${cls}`} />}
+    </>
   );
 }
 
 /**
  * Seção do app no celular, abaixo do painel. Sem selo e sem "disponível" enquanto `live` for false.
- * O selo oficial da Apple (public/brand/app-store-badge.svg) e o link só entram com live + href.
+ * O selo oficial da Apple (public/brand/app-store-badge.png) e o link só entram com live + href.
  */
 export function DashMobileSection({
   screens,
@@ -57,9 +54,8 @@ export function DashMobileSection({
           </h2>
           <p className="text-[var(--cb-muted)] text-lg leading-relaxed mb-8">{c.text}</p>
           {live && appStoreHref ? (
-            <a href={appStoreHref} target="_blank" rel="noopener" className="inline-flex items-center gap-4">
-              <Image src="/brand/app-store-badge.svg" alt="Baixar na App Store" width={120} height={40} className="h-11 w-auto" />
-              <span className="text-[var(--cb-muted)]">{c.call}</span>
+            <a href={appStoreHref} target="_blank" rel="noopener" className="inline-flex">
+              <Image src="/brand/app-store-badge.png" alt="Baixar na App Store" width={135} height={40} className="h-11 w-auto" />
             </a>
           ) : (
             <p className="cb-chip inline-flex items-center gap-3 rounded-full px-5 min-h-11 text-sm font-medium">

@@ -50,13 +50,13 @@ export function FlowLoop({
               className="cb-flow"
               d="M 833 2 C 833 96, 167 96, 167 8"
               fill="none"
-              stroke="rgba(255,255,255,0.45)"
+              stroke="var(--cb-fg)" strokeOpacity="0.45"
               strokeWidth="2"
               strokeLinecap="round"
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="rgba(255,255,255,0.7)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="absolute left-[16.667%] top-0 -translate-x-1/2 -translate-y-1/2">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--cb-fg)" strokeOpacity="0.7" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="absolute left-[16.667%] top-0 -translate-x-1/2 -translate-y-1/2">
             <path d="M6 15l6-6 6 6" />
           </svg>
         </div>

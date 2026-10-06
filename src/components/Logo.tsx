@@ -2,15 +2,12 @@ import Image from "next/image";
 
 export function Logo({ size = 28 }: { size?: number }) {
   const width = size * (500 / 210);
+  const props = { width, height: size, priority: true, style: { height: size, width: "auto" } } as const;
   return (
-    <Image
-      src="/brand/logo-light.png"
-      alt="Clique Boost"
-      width={width}
-      height={size}
-      priority
-      style={{ height: size, width: "auto" }}
-    />
+    <>
+      <Image src="/brand/logo-light.png" alt="Clique Boost" className="cb-logo-on-dark" {...props} />
+      <Image src="/brand/logo-dark.png" alt="" aria-hidden className="cb-logo-on-light" {...props} />
+    </>
   );
 }
 

@@ -1,19 +1,28 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { useEffect, useRef } from "react";
 import { Reveal } from "./Reveal";
 
-const C = 200;
-const R = 130;
-const CIRC = 2 * Math.PI * R;
-const at = (deg: number) => ({
-  x: C + R * Math.cos((deg * Math.PI) / 180),
-  y: C + R * Math.sin((deg * Math.PI) / 180),
-});
+const PURPLE = [138, 43, 226];
+const BLUE = [10, 110, 240];
+const mix = (t: number) => PURPLE.map((c, i) => Math.round(c + (BLUE[i] - c) * t));
 
-/** O ciclo do contato: um pulso percorre o anel e acende cada etapa em ordem. */
+const WAVE_S = 3; // uma nova leva de contatos a cada 3 s
+const TRAVEL_S = 9; // tempo para uma leva atravessar o funil
+const LANES = [-0.85, -0.55, -0.25, 0.05, 0.3, 0.55, 0.85, -0.05, -0.7, 0.18, 0.7, -0.4]; // posição vertical de cada contato na entrada
+const DELAY = [0, 0.06, 0.02, 0.09, 0.04, 0.1, 0.07, 0.12, 0.03, 0.11, 0.05, 0.08]; // atraso de cada um, para não irem em bloco
+const FILTERED = new Set([1, 5, 6, 8, 11]); // contatos que a etapa "Atender" não leva adiante (só ilustração)
+
+const smooth = (a: number, b: number, x: number) => {
+  const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+  return t * t * (3 - 2 * t);
+};
+
+/**
+ * O contato no caminho: vários contatos entram pelo lado largo do funil, passam pelas quatro etapas e só
+ * parte deles segue até o fim (a IA qualifica na etapa 3). Cada etapa acende quando um contato passa por ela.
+ * Desenhado em canvas, pausa fora da tela e, com "reduzir movimento", mostra um quadro parado.
+ */
 export function CycleSystem({
   title,
   steps,
@@ -21,158 +30,187 @@ export function CycleSystem({
   title: string;
   steps: { title: string; description: string }[];
 }) {
-  const rootRef = useRef<HTMLElement>(null);
-  const ringRef = useRef<SVGCircleElement>(null);
-  const dotRef = useRef<SVGCircleElement>(null);
-  const haloRef = useRef<SVGCircleElement>(null);
-  // null = sem animação (reduced-motion ou antes de entrar na tela): tudo legível.
-  const [active, setActive] = useState<number | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const root = rootRef.current;
-    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const wrap = wrapRef.current;
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!wrap || !canvas || !ctx) return;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ringRef.current,
-        { strokeDashoffset: CIRC },
-        {
-          strokeDashoffset: 0,
-          duration: 1.6,
-          ease: "power2.out",
-          scrollTrigger: { trigger: root, start: "top 70%", once: true },
+    const n = steps.length;
+    let W = 0;
+    let H = 0;
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = wrap.clientWidth;
+      H = wrap.clientHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    const ro = new ResizeObserver(() => {
+      resize();
+      draw(last);
+    });
+    ro.observe(wrap);
+
+    // Meia altura do funil em cada ponto: larga na entrada, estreita depois da etapa 3.
+    const half = (x: number) => (H / 2) * (0.92 - 0.62 * smooth(0.1, 0.7, x));
+    const nodeX = (i: number) => ((i + 0.5) / n) * W;
+
+    let last = 6; // instante usado no quadro parado
+    function draw(t: number) {
+      const css = getComputedStyle(wrap!);
+      const fg = css.getPropertyValue("--cb-fg").trim() || "#fff";
+      const bg = css.getPropertyValue("--cb-bg").trim() || "#0b0b0d";
+      const line = css.getPropertyValue("--cb-border-strong").trim() || "rgba(255,255,255,0.2)";
+      const cy = H / 2;
+      ctx!.clearRect(0, 0, W, H);
+
+      // Contorno do funil.
+      ctx!.strokeStyle = line;
+      ctx!.lineWidth = 1.5;
+      ctx!.setLineDash([2, 7]);
+      ctx!.lineCap = "round";
+      for (const sign of [-1, 1]) {
+        ctx!.beginPath();
+        for (let px = 0; px <= W; px += 6) {
+          const y = cy + sign * half(px / W);
+          if (px === 0) ctx!.moveTo(px, y);
+          else ctx!.lineTo(px, y);
         }
-      );
+        ctx!.stroke();
+      }
+      ctx!.setLineDash([]);
+      ctx!.beginPath();
+      ctx!.moveTo(0, cy);
+      ctx!.lineTo(W, cy);
+      ctx!.strokeStyle = line;
+      ctx!.globalAlpha = 0.5;
+      ctx!.stroke();
+      ctx!.globalAlpha = 1;
 
-      const o = { a: -90 };
-      const move = () => {
-        const p = at(o.a);
-        for (const el of [dotRef.current, haloRef.current]) {
-          el?.setAttribute("cx", String(p.x));
-          el?.setAttribute("cy", String(p.y));
-        }
-      };
-      const tl = gsap.timeline({ repeat: -1, paused: true });
-      tl.set(o, { a: -90, onComplete: move });
-      steps.forEach((_, i) => {
-        tl.call(() => setActive(i));
-        tl.to({}, { duration: 1.1 });
-        tl.to(o, { a: -90 + (360 / steps.length) * (i + 1), duration: 1.2, ease: "power2.inOut", onUpdate: move });
-      });
+      // Contatos.
+      const glow = new Array(n).fill(0);
+      const firstWave = Math.floor(t / WAVE_S) - Math.floor(TRAVEL_S / WAVE_S);
+      for (let k = firstWave; k <= Math.floor(t / WAVE_S); k++) {
+        const wp = (t - k * WAVE_S) / TRAVEL_S; // 0..1 ao longo do funil
+        if (wp < 0 || wp > 1.15) continue;
+        LANES.forEach((lane, i) => {
+          const p = (wp - DELAY[i]) / (1 - 0.12);
+          if (p < 0 || p > 1) return;
+          const filtered = FILTERED.has(i);
+          // etapa 3: quem não qualifica some; quem qualifica segue para o centro.
+          const gone = filtered ? smooth(0.5, 0.62, p) : 0;
+          const squeeze = filtered ? 0 : 0.75 * smooth(0.5, 0.75, p);
+          const x = p * W;
+          const y = cy + lane * half(p) * (1 - squeeze) + (filtered ? gone * lane * 14 : 0);
+          const fade = (1 - gone) * smooth(0, 0.06, p) * (1 - smooth(0.94, 1, p));
+          if (fade <= 0.01) return;
+          const [r, g, b] = mix(p);
+          ctx!.globalAlpha = fade * 0.25;
+          ctx!.fillStyle = `rgb(${r},${g},${b})`;
+          ctx!.beginPath();
+          ctx!.arc(x, y, 10, 0, Math.PI * 2);
+          ctx!.fill();
+          ctx!.globalAlpha = fade;
+          ctx!.fillStyle = p > 0.78 && !filtered ? fg : `rgb(${r},${g},${b})`;
+          ctx!.beginPath();
+          ctx!.arc(x, y, 5, 0, Math.PI * 2);
+          ctx!.fill();
+          for (let s = 0; s < n; s++) {
+            const d = (x - nodeX(s)) / (W * 0.05);
+            glow[s] = Math.max(glow[s], fade * Math.exp(-d * d));
+          }
+        });
+      }
+      ctx!.globalAlpha = 1;
 
-      ScrollTrigger.create({
-        trigger: root,
-        start: "top 70%",
-        end: "bottom 20%",
-        onToggle: (self) => (self.isActive ? tl.play() : tl.pause()),
-      });
-    }, root);
+      // Etapas.
+      ctx!.font = "700 16px var(--font-body), sans-serif";
+      ctx!.textAlign = "center";
+      ctx!.textBaseline = "middle";
+      for (let s = 0; s < n; s++) {
+        const x = nodeX(s);
+        const g = Math.min(1, glow[s]);
+        ctx!.fillStyle = bg;
+        ctx!.strokeStyle = line;
+        ctx!.lineWidth = 1;
+        ctx!.beginPath();
+        ctx!.arc(x, cy, 20, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.stroke();
+        ctx!.globalAlpha = g;
+        ctx!.fillStyle = fg;
+        ctx!.beginPath();
+        ctx!.arc(x, cy, 20, 0, Math.PI * 2);
+        ctx!.fill();
+        ctx!.globalAlpha = 1;
+        ctx!.fillStyle = g > 0.5 ? bg : fg;
+        ctx!.fillText(String(s + 1), x, cy + 1);
+      }
+    }
 
-    return () => ctx.revert();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      draw(last);
+      return () => ro.disconnect();
+    }
+
+    let raf = 0;
+    let t0 = 0;
+    const frame = (now: number) => {
+      if (!t0) t0 = now - last * 1000;
+      last = (now - t0) / 1000;
+      draw(last);
+      raf = requestAnimationFrame(frame);
+    };
+    const io = new IntersectionObserver(([e]) => {
+      cancelAnimationFrame(raf);
+      t0 = 0;
+      if (e.isIntersecting) raf = requestAnimationFrame(frame);
+      else draw(last);
+    });
+    io.observe(wrap);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      ro.disconnect();
+    };
   }, [steps]);
 
-  const nodes = steps.map((_, i) => at(-90 + (360 / steps.length) * i));
-
   return (
-    <section ref={rootRef} className="relative py-28 px-6 md:px-10 overflow-hidden">
+    <section className="relative py-28 px-6 md:px-10 overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <Reveal>
-          <h2 className="text-3xl md:text-5xl mb-16 max-w-3xl">{title}</h2>
+          <h2 className="text-3xl md:text-5xl mb-14 max-w-3xl">{title}</h2>
         </Reveal>
 
-        <div className="grid md:grid-cols-[minmax(0,400px)_1fr] gap-12 md:gap-24 items-center">
-          <Reveal y={30}>
-            <div className="relative mx-auto w-full max-w-[380px] aspect-square">
-              <svg viewBox="0 0 400 400" className="relative w-full h-full" aria-hidden>
-                <circle cx={C} cy={C} r={R + 36} fill="none" stroke="var(--cb-border)" strokeDasharray="2 8" strokeLinecap="round" />
-                <circle cx={C} cy={C} r={R} fill="none" stroke="var(--cb-border-strong)" strokeWidth="1.5" />
-                <circle
-                  ref={ringRef}
-                  cx={C}
-                  cy={C}
-                  r={R}
-                  fill="none"
-                  stroke="#fff"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeDasharray={CIRC}
-                  transform={`rotate(-90 ${C} ${C})`}
-                />
-                {nodes.map((p, i) => {
-                  const on = active === null || active === i;
-                  return (
-                    <g key={i}>
-                      <circle cx={p.x} cy={p.y} r="26" fill="var(--cb-panel)" stroke="var(--cb-border-strong)" />
-                      <circle
-                        cx={p.x}
-                        cy={p.y}
-                        r="26"
-                        fill="#fff"
-                        style={{ opacity: on ? 1 : 0, transition: "opacity 400ms" }}
-                      />
-                      <text
-                        x={p.x}
-                        y={p.y}
-                        textAnchor="middle"
-                        dominantBaseline="central"
-                        fill={on ? "#0b0b0d" : "#fff"}
-                        fontWeight="700"
-                        fontSize="18"
-                        style={{ fontFamily: "var(--font-body)" }}
-                      >
-                        {i + 1}
-                      </text>
-                    </g>
-                  );
-                })}
-                {active !== null && (
-                  <>
-                    <circle ref={haloRef} cx={nodes[0].x} cy={nodes[0].y} r="14" fill="#fff" opacity="0.18" />
-                    <circle ref={dotRef} cx={nodes[0].x} cy={nodes[0].y} r="6" fill="#fff" />
-                  </>
-                )}
-              </svg>
-              <Image
-                src="/brand/favicon.png"
-                alt=""
-                width={64}
-                height={64}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 object-contain opacity-90"
-              />
-            </div>
-          </Reveal>
+        <Reveal y={30}>
+          <div ref={wrapRef} className="relative w-full h-56 md:h-72" aria-hidden>
+            <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+          </div>
+        </Reveal>
 
-          <ol className="flex flex-col gap-3">
-            {steps.map((step, i) => {
-              const on = active === null || active === i;
-              return (
-                <li key={step.title}>
-                  <Reveal delay={i * 0.08}>
-                    <div
-                      className="flex gap-5 rounded-2xl border p-5 md:p-6 transition-all duration-500"
-                      style={{
-                        borderColor: active === i ? "var(--cb-border-strong)" : "transparent",
-                        background: active === i ? "var(--cb-panel)" : "transparent",
-                        opacity: on ? 1 : 0.45,
-                      }}
-                    >
-                      <span
-                        className="cb-chip shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold"
-                        aria-hidden
-                      >
-                        {i + 1}
-                      </span>
-                      <div>
-                        <h3 className="text-xl md:text-2xl mb-1.5">{step.title}</h3>
-                        <p className="text-[var(--cb-muted)] max-w-md leading-relaxed">{step.description}</p>
-                      </div>
-                    </div>
-                  </Reveal>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
+        <ol className="mt-10 grid gap-8 md:grid-cols-4 md:gap-0">
+          {steps.map((step, i) => (
+            <li key={step.title} className="md:px-4 md:text-center">
+              <Reveal delay={i * 0.08}>
+                <div className="flex gap-4 md:block">
+                  <span className="cb-chip shrink-0 w-9 h-9 rounded-full flex items-center justify-center font-bold md:hidden" aria-hidden>
+                    {i + 1}
+                  </span>
+                  <div>
+                    <h3 className="text-xl md:text-2xl mb-2">{step.title}</h3>
+                    <p className="text-[var(--cb-muted)] leading-relaxed md:mx-auto max-w-xs">{step.description}</p>
+                  </div>
+                </div>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

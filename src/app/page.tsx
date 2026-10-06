@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Reveal } from "@/components/Reveal";
 import { WeightLift } from "@/components/WeightLift";
 import { FlowLoop } from "@/components/FlowLoop";
@@ -8,16 +7,18 @@ import { DashProofSection } from "@/components/DashProofSection";
 import { CycleSystem } from "@/components/CycleSystem";
 import { HeroTitle } from "@/components/HeroTitle";
 import { HeroBackdrop } from "@/components/HeroBackdrop";
+import { HeroGlobe } from "@/components/HeroGlobe";
 import { ChatPreview } from "@/components/ChatPreview";
 import { ViralCases } from "@/components/ViralCases";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Liquid } from "@/components/canvasui/Liquid";
 import { DashMobileSection } from "@/components/DashMobileSection";
 import { Testimonials } from "@/components/Testimonials";
+import { ScheduleButton } from "@/components/ScheduleButton";
 import { MOBILE_SCREENS } from "@/content/dashMobile";
 
 /** Ligar (true) só quando o app estiver publicado na App Store. Enquanto for false: texto "a caminho" e nenhum selo. */
-const APP_STORE_LIVE = false;
+const APP_STORE_LIVE = true; // PRÉVIA TEMPORÁRIA do selo: voltar para false até o app ser publicado
 
 export default function Home() {
   return (
@@ -26,34 +27,27 @@ export default function Home() {
         <HeroBackdrop />
         {/* Canvas UI (MIT + Commons Clause): uso no site é permitido, revenda não. */}
         <Liquid className="cb-liquid relative" color={[0.7, 0.72, 0.8]} radius={0.1} force={0.6} intensity={0.55} densityDissipation={0.93}>
-        <div className="min-h-screen flex flex-col justify-center px-6 md:px-10 pt-24">
-        <Reveal className="relative max-w-5xl">
-          <HeroTitle
-            lines={["O anúncio traz o contato.", "O atendimento decide se vira cliente."]}
-            accentLine={1}
-          />
-          <p className="text-xl md:text-2xl text-[var(--cb-muted)] max-w-2xl mb-12">
-            A Clique Boost não vende serviços soltos. Monta o sistema que leva o contato do
-            anúncio até a conversa de venda, para profissionais brasileiros nos EUA. A IA
-            responde e qualifica. Uma pessoa fecha.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="https://cal.com/victor-clique-boost-jelawr/30min"
-              target="_blank"
-              className="cb-gradient-bg cb-press text-white font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform"
-            >
-              Agendar uma conversa
-            </Link>
-            <Link
-              href="https://wa.me/12393750915"
-              target="_blank"
-              className="cb-press border border-[var(--cb-border-strong)] font-bold px-8 py-4 rounded-full hover:border-[var(--cb-fg)] transition-colors"
-            >
-              Falar no WhatsApp
-            </Link>
+        <div className="min-h-screen flex flex-col justify-center px-6 md:px-10 pt-28">
+          {/* Mesmo contêiner centralizado das outras seções: texto e globo ficam juntos, sem se afastar. */}
+          <div className="relative w-full max-w-6xl mx-auto">
+            <HeroGlobe className="absolute right-0 top-1/2 -translate-y-1/2 h-[min(100vh,780px)] w-full md:w-[58%] opacity-40 md:opacity-100" />
+            {/* pointer-events-none: o texto não captura o mouse e o globo reage também por baixo dele. O botão reativa o clique. */}
+            <Reveal className="relative max-w-3xl pointer-events-none">
+              <HeroTitle
+                lines={["O anúncio traz o contato", "O atendimento decide", "se vira cliente"]}
+                accentFrom={1}
+                srAfter={[".", "", "."]}
+              />
+              <p className="text-xl md:text-2xl text-[var(--cb-muted)] max-w-xl mb-12">
+                A Clique Boost não vende serviços soltos. Monta o sistema que leva o contato do
+                anúncio até a conversa de venda, para profissionais brasileiros nos EUA. A IA
+                responde e qualifica. Uma pessoa fecha.
+              </p>
+              <ScheduleButton className="pointer-events-auto cb-gradient-bg cb-press text-white font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform">
+                Agendar uma conversa
+              </ScheduleButton>
+            </Reveal>
           </div>
-        </Reveal>
         </div>
         </Liquid>
       </section>
@@ -84,7 +78,6 @@ export default function Home() {
             <ChatPreview
               name="Assistente virtual"
               badge="IA"
-              status="Chat de teste, em construção"
               greeting="Oi! Sou a assistente virtual da Clique Boost. Posso te explicar como funciona e, se você quiser, passar para uma pessoa. Sobre o que você quer saber?"
               replies={["Como funciona?", "Já tenho agência", "Quero agendar uma conversa"]}
               placeholder="Escreva sua mensagem"
@@ -103,11 +96,11 @@ export default function Home() {
           },
           {
             title: "A IA atende e qualifica",
-            description: "Ela responde ao contato e faz as perguntas-chave. Do primeiro contato até o agendamento, a IA acompanha.",
+            description: "Ela responde ao contato e faz as perguntas-chave. O fluxo é desenhado com você: se preferir, a IA só qualifica e uma pessoa continua. Se a reunião não fecha, o follow-up também é com a IA.",
           },
           {
-            title: "O fluxo é desenhado com você",
-            description: "Se preferir, a IA só qualifica e uma pessoa continua. Se a reunião não fecha, o follow-up também é com a IA, e o ciclo recomeça.",
+            title: "O ciclo recomeça",
+            description: "A gente revisa o que o atendimento ouviu e ajusta o próximo anúncio.",
           },
         ]}
       />
@@ -117,9 +110,9 @@ export default function Home() {
         cases={[
           {
             title: "Corretor em Orlando",
-            metric: "230 mil",
+            metric: "520 mil",
             unit: "visualizações",
-            description: "Um vídeo passou de 230 mil visualizações, e o perfil foi de cerca de 2.400 para 3.700 seguidores em 2 dias. O vídeo somou mais de 25 mil interações, entre curtidas, comentários, compartilhamentos e salvamentos.",
+            description: "Um vídeo passou de 520 mil visualizações em 3 dias, e o painel registra 2,7 mil novos seguidores ligados a ele. Somou mais de 48 mil curtidas, comentários, compartilhamentos e salvamentos.",
           },
           {
             title: "Corretora na Flórida",
@@ -142,7 +135,7 @@ export default function Home() {
         angle={APP_STORE_LIVE ? "Funciona no navegador e no celular, e o app está disponível na App Store." : "Funciona no navegador e no celular, e o app para iPhone está a caminho."}
       />
 
-      <DashMobileSection screens={MOBILE_SCREENS} live={APP_STORE_LIVE} />
+      <DashMobileSection screens={MOBILE_SCREENS} live={APP_STORE_LIVE} appStoreHref="https://apps.apple.com/" />
 
       <WeightLift title="O que você deixa de carregar" />
 
