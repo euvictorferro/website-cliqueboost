@@ -36,10 +36,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
-        {/* Aplica o tema salvo antes da primeira pintura, para não piscar. O padrão é o escuro. */}
+        {/* Aplica o tema antes da primeira pintura, para não piscar. Escolha salva do visitante vence; sem escolha,
+            claro das 6h às 17h e escuro das 17h às 6h (hora do aparelho). Qualquer falha cai no escuro. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(localStorage.getItem("cb-theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}`,
+            __html: `try{var t=localStorage.getItem("cb-theme"),h=new Date().getHours();if(t==="light"||(t!=="dark"&&h>=6&&h<17))document.documentElement.dataset.theme="light"}catch(e){}`,
           }}
         />
       </head>

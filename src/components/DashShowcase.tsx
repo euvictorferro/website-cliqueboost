@@ -203,10 +203,9 @@ export function DashShowcase({
                       ))}
                       <span className="ml-3 text-sm font-medium text-[var(--cb-fg)]">{sc.title}</span>
                     </div>
-                    {/* No celular a captura mantém um tamanho legível e a moldura rola na horizontal. */}
-                    <div className="overflow-x-auto md:overflow-visible flex-1 min-h-0">
+                                        <div className="flex-1 min-h-0">
                       <div
-                        className={`relative min-w-[900px] md:min-w-0 ${
+                        className={`relative ${
                           k === 0 ? "aspect-[1920/992]" : "h-full"
                         }`}
                       >

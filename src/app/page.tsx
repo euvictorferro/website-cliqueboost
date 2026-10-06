@@ -11,7 +11,6 @@ import { HeroGlobe } from "@/components/HeroGlobe";
 import { ChatPreview } from "@/components/ChatPreview";
 import { ViralCases } from "@/components/ViralCases";
 import { FinalCTA } from "@/components/FinalCTA";
-import { Liquid } from "@/components/canvasui/Liquid";
 import { DashMobileSection } from "@/components/DashMobileSection";
 import { Testimonials } from "@/components/Testimonials";
 import { ScheduleButton } from "@/components/ScheduleButton";
@@ -25,8 +24,7 @@ export default function Home() {
     <>
       <section className="relative cb-noise overflow-hidden">
         <HeroBackdrop />
-        {/* Canvas UI (MIT + Commons Clause): uso no site é permitido, revenda não. */}
-        <Liquid className="cb-liquid relative" color={[0.7, 0.72, 0.8]} radius={0.1} force={0.6} intensity={0.55} densityDissipation={0.93}>
+        <div className="relative">
         <div className="min-h-screen flex flex-col justify-center px-6 md:px-10 pt-28">
           {/* Mesmo contêiner centralizado das outras seções: texto e globo ficam juntos, sem se afastar. */}
           <div className="relative w-full max-w-6xl mx-auto">
@@ -49,7 +47,7 @@ export default function Home() {
             </Reveal>
           </div>
         </div>
-        </Liquid>
+        </div>
       </section>
 
       {/* Ideia única da página: o ciclo do contato (atrair, trazer, atender, acompanhar). */}

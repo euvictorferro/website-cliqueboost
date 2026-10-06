@@ -182,13 +182,6 @@ body {
 .cb-orbit { animation: cb-orbit 28s linear infinite; }
 
 
-/* Fluido do hero: soma de luz sobre o fundo, sem cobrir o texto. */
-.cb-liquid canvas[aria-hidden] {
-  mix-blend-mode: screen;
-  opacity: 0.55;
-}
-
-
 /* Retorno do ciclo: tracejado que corre. */
 @keyframes cb-flow {
   to { stroke-dashoffset: -28; }

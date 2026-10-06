@@ -18,7 +18,7 @@ const COPY = {
 
 /** O aparelho já vem desenhado na própria imagem (fundo transparente): aqui só entra a sombra. */
 function Phone({ screen, className = "" }: { screen: MobileScreen; className?: string }) {
-  const cls = `w-[150px] sm:w-[200px] h-auto drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)] [:root[data-theme=light]_&]:drop-shadow-[0_24px_36px_rgba(0,0,0,0.22)] ${className}`;
+  const cls = `w-[112px] min-[420px]:w-[140px] sm:w-[200px] h-auto drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)] [:root[data-theme=light]_&]:drop-shadow-[0_24px_36px_rgba(0,0,0,0.22)] ${className}`;
   return (
     <>
       <Image src={screen.src} alt={screen.alt} width={720} height={1561} sizes="220px" className={`cb-on-dark ${cls}`} />
@@ -43,7 +43,7 @@ export function DashMobileSection({
   const c = live ? COPY.live : COPY.soon;
   const shown = screens.slice(0, 3);
   // Celular do meio na frente e um pouco mais alto; os outros recuam para os lados.
-  const offsets = shown.length === 3 ? ["md:translate-y-10 md:-rotate-3", "md:-translate-y-2 z-10", "md:translate-y-10 md:rotate-3"] : [];
+  const offsets = shown.length === 3 ? ["translate-y-6 -rotate-3 md:translate-y-10", "-translate-y-1 z-10 md:-translate-y-2", "translate-y-6 rotate-3 md:translate-y-10"] : [];
 
   return (
     <section className="py-28 px-6 md:px-10 border-t border-[var(--cb-border)]">
@@ -69,15 +69,15 @@ export function DashMobileSection({
         </Reveal>
 
         {shown.length > 0 && (
-          <div>
-            <div className="flex justify-center items-center gap-4 md:gap-0 md:-space-x-6 flex-wrap md:flex-nowrap">
+          <div className="order-first md:order-none">
+            <div className="flex justify-center items-center -space-x-7 sm:-space-x-6">
               {shown.map((sc, k) => (
                 <Reveal key={sc.key} y={60} delay={k * 0.12}>
                   <Phone screen={sc} className={offsets[k] ?? ""} />
                 </Reveal>
               ))}
             </div>
-            <p className="mt-16 text-sm text-[var(--cb-muted)] text-center">{DEFAULT_CAPTION}</p>
+            <p className="mt-12 md:mt-16 text-sm text-[var(--cb-muted)] text-center">{DEFAULT_CAPTION}</p>
           </div>
         )}
       </div>
