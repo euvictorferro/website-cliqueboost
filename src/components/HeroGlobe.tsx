@@ -33,6 +33,7 @@ export function HeroGlobe({ className = "" }: { className?: string }) {
       orbit={!small}
       zoom={false}
       autoRotate={false}
+      tilt={small}
     />
     </div>
   );

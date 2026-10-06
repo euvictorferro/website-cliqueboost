@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { tilt as tiltState } from "@/lib/device-tilt";
 
 const canvasDimensionLimits = new WeakMap<WebGLRenderingContext | WebGL2RenderingContext, number>();
 
@@ -115,6 +116,8 @@ export interface ParticleObjectOptions {
   strength?: number;
   /** Tangential curl of the push (0 to 2). Particles spiral around the cursor instead of only fleeing it. */
   swirl?: number;
+  /** Particles slide sideways with the phone's left/right tilt (see lib/device-tilt). Level = normal. */
+  tilt?: boolean;
   /** How quickly displaced particles spring back home. */
   spring?: number;
   /** Velocity damping (0 to 1). Lower values keep particles wobbling longer. */
@@ -178,6 +181,7 @@ const DEFAULTS: Required<ParticleObjectOptions> = {
   radius: 110,
   strength: 1,
   swirl: 0.6,
+  tilt: false,
   spring: 1,
   damping: 0.35,
   drift: 0.6,
@@ -914,6 +918,8 @@ export function createParticleObject(
   const camUp = new THREE.Vector3();
   const camBack = new THREE.Vector3();
   const localShove = new THREE.Vector3();
+  const tiltDir = new THREE.Vector3();
+  let tiltSmooth = 0;
 
   function simulate(delta: number) {
     if (!points || !homes || !velocities || particleCount === 0) return;
@@ -978,6 +984,18 @@ export function createParticleObject(
     const swirl = Math.min(Math.max(config.swirl, 0), 2);
     const r2max = localRadius * localRadius;
 
+    // Inclinação do celular: cada partícula é puxada para o lado, com intensidades diferentes, e a mola traz de volta.
+    tiltSmooth += ((config.tilt && !reducedMotion ? tiltState.value : 0) - tiltSmooth) * Math.min(1, delta * 6);
+    let tiltAccel = 0;
+    if (Math.abs(tiltSmooth) > 0.005) {
+      points.updateWorldMatrix(true, false);
+      inverseMatrix.copy(points.matrixWorld).invert();
+      camera.matrixWorld.extractBasis(camRight, camUp, camBack);
+      tiltDir.copy(camRight).transformDirection(inverseMatrix);
+      const reach = 0.7 / Math.max(fitGroup.scale.x, 1e-4); // alcance em unidades do modelo
+      tiltAccel = tiltSmooth * stiffness * reach;
+    }
+
     for (let i = 0; i < particleCount; i++) {
       const ix = i * 3;
       const iy = ix + 1;
@@ -1010,6 +1028,14 @@ export function createParticleObject(
           vy += (ry + ty * swirl) * pushAccel * f + localShove.y * shove * f;
           vz += (rz + tz * swirl) * pushAccel * f + localShove.z * shove * f;
         }
+      }
+
+      if (tiltAccel !== 0) {
+        const fi = 0.35 + (((i * 2654435761) >>> 0) / 4294967295);
+        const a = tiltAccel * fi * delta;
+        vx += tiltDir.x * a;
+        vy += tiltDir.y * a;
+        vz += tiltDir.z * a;
       }
 
       vx += (h[ix] - p[ix]) * stiffness * delta;

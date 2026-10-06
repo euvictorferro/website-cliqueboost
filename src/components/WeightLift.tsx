@@ -127,6 +127,7 @@ export function WeightLift({ title }: { title: string }) {
                 floatSpeed={1.3}
                 orbit={false}
                 zoom={false}
+                tilt={small}
               />
             </div>
           </div>

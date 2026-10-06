@@ -5,6 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Grain } from "@/components/Grain";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { TiltEnable } from "@/components/TiltEnable";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1">{children}</main>
         <Footer />
         <ThemeToggle />
+        <TiltEnable />
         <Analytics />
         <SpeedInsights />
       </body>
