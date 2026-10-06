@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   description:
     "Anúncios, atendimento com IA, social media, sites, design e brand guidelines integrados no método BoostConnect, para profissionais brasileiros nos EUA.",
   icons: {
-    icon: "/brand/favicon.png",
+    icon: "/brand/favicon-tab.png",
   },
 };
 

@@ -16,7 +16,7 @@ export function FinalCTA({
       <Reveal className="relative max-w-3xl mx-auto flex flex-col items-center gap-8">
         <h2 className="text-4xl md:text-6xl">{title}</h2>
         <p className="text-lg text-[var(--cb-muted)] max-w-xl">{subtitle}</p>
-        <ScheduleButton className="cb-gradient-bg cb-press text-white font-bold text-lg px-10 py-4 rounded-full hover:scale-105 transition-transform">
+        <ScheduleButton className="cb-neon cb-press font-bold text-lg px-10 py-4 rounded-full hover:scale-105 transition-transform">
           {ctaLabel}
         </ScheduleButton>
       </Reveal>

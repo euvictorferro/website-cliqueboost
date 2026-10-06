@@ -41,7 +41,7 @@ export default function Home() {
                 anúncio até a conversa de venda, para profissionais brasileiros nos EUA. A IA
                 responde e qualifica. Uma pessoa fecha.
               </p>
-              <ScheduleButton className="pointer-events-auto cb-gradient-bg cb-press text-white font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform">
+              <ScheduleButton className="pointer-events-auto cb-neon cb-press font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform">
                 Agendar uma conversa
               </ScheduleButton>
             </Reveal>
@@ -77,7 +77,7 @@ export default function Home() {
               name="Assistente virtual"
               badge="IA"
               greeting="Oi! Sou a assistente virtual da Clique Boost. Posso te explicar como funciona e, se você quiser, passar para uma pessoa. Sobre o que você quer saber?"
-              replies={["Como funciona?", "Já tenho agência", "Quero agendar uma conversa"]}
+              replies={["Como funciona?", "Para quais negócios funciona?", "Quero agendar uma conversa"]}
               placeholder="Escreva sua mensagem"
               privacy="Você está falando com uma IA. Não compartilhe senhas nem dados de cartão."
             />

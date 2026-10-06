@@ -41,7 +41,7 @@ export function Navbar() {
           <Logo size={44} />
         </Link>
 
-        <ScheduleButton className="cb-gradient-bg cb-press inline-flex items-center min-h-11 text-sm font-semibold text-white px-5 rounded-full">
+        <ScheduleButton className="cb-neon cb-press inline-flex items-center min-h-11 text-sm font-semibold px-5 rounded-full">
           Agendar uma conversa
         </ScheduleButton>
       </nav>

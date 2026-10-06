@@ -129,7 +129,7 @@ export function ChatPreview({
                   key={r}
                   type="button"
                   onClick={() => send(r)}
-                  className="min-h-11 rounded-full border border-[var(--cb-border-strong)] px-4 text-sm font-medium text-[var(--cb-fg)] hover:bg-[var(--cb-panel-raised)] transition-colors"
+                  className="cb-neon min-h-11 rounded-full px-4 text-sm font-medium"
                 >
                   {r}
                 </button>
@@ -158,7 +158,7 @@ export function ChatPreview({
                   <div key={`${i}-${k}`} className="flex flex-col items-start gap-2">
                     {part.text && <p className={bubble}>{part.text}</p>}
                     {part.schedule && !(busy && i === last) && (
-                      <ScheduleButton className="min-h-11 rounded-full bg-[var(--cb-fg)] px-5 text-sm font-semibold text-[var(--cb-bg)]">
+                      <ScheduleButton className="cb-neon min-h-11 rounded-full px-5 text-sm font-semibold">
                         Agendar conversa
                       </ScheduleButton>
                     )}

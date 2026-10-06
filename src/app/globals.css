@@ -94,6 +94,37 @@ body {
   background: linear-gradient(135deg, #8a2be2 0%, #0a6ef0 100%);
 }
 
+/* Botão neon, em degradê de azul (claro para escuro): fundo translúcido que fica mais cheio no hover, borda fina e
+   uma linha de luz embaixo que passa para o topo. */
+.cb-neon {
+  position: relative;
+  color: var(--cb-fg);
+  text-align: center;
+  border: 1px solid rgba(70, 150, 255, 0.4);
+  background: linear-gradient(135deg, rgba(90, 180, 255, 0.14), rgba(10, 90, 230, 0.2));
+  transition: background 300ms, border-color 300ms, box-shadow 500ms, transform 100ms ease-out;
+}
+.cb-neon:hover {
+  background: linear-gradient(135deg, rgba(90, 180, 255, 0.5), rgba(10, 90, 230, 0.62));
+  border-color: rgba(90, 170, 255, 0.7);
+  box-shadow: 0 0 30px -10px rgba(40, 130, 255, 0.7);
+}
+.cb-neon::before,
+.cb-neon::after {
+  content: "";
+  position: absolute;
+  left: 12.5%;
+  width: 75%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #6cc0ff, #0a6ef0, transparent);
+  transition: opacity 500ms ease-in-out;
+  pointer-events: none;
+}
+.cb-neon::before { top: -1px; opacity: 0; }
+.cb-neon::after { bottom: -1px; opacity: 1; }
+.cb-neon:hover::before { opacity: 1; }
+.cb-neon:hover::after { opacity: 0.3; }
+
 /* Translucent chrome per Apple Design skill: content scrolls under, never opaque */
 .cb-glass {
   background: rgba(11, 11, 13, 0.6);
