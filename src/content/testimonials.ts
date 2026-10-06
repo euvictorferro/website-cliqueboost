@@ -8,7 +8,7 @@
  */
 export type Testimonial = { quote: string; brand: string; logo: string };
 
-export const TESTIMONIALS_TITLE = ""; // título da seção: texto do Marketing
+export const TESTIMONIALS_TITLE = "Em palavras de quem já trabalha com a gente"; // título da seção: texto do Marketing
 
 export const TESTIMONIALS: Testimonial[] = [
   {
