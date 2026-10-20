@@ -57,3 +57,22 @@ export const TESTIMONIALS: Testimonial[] = [
     quote: "A estratégia visual e o posicionamento da nossa marca ficaram sensacionais. A qualidade das produções e o cuidado no atendimento ao cliente fazem toda a diferença para o nosso mercado. Aprovado 100%!",
   },
 ];
+
+/**
+ * Vídeo de depoimento (9:16, cerca de 30 s), em destaque ao lado da faixa de textos. Só entra com depoimento real e
+ * autorizado. Arquivos em /public/depoimentos. Enquanto for null, a seção só mostra um espaço reservado em
+ * desenvolvimento e nada no site publicado.
+ */
+export type TestimonialVideo = {
+  src: string; // MP4 (H.264 + AAC), ex.: "/depoimentos/depoimento-1.mp4"
+  poster: string; // imagem de capa, ex.: "/depoimentos/depoimento-1.jpg"
+  captions?: string; // legenda em português (WebVTT), ex.: "/depoimentos/depoimento-1.pt-BR.vtt"
+  brand: string; // marca do cliente (só para texto alternativo)
+  logo?: string; // logo do cliente, mostrado sob o vídeo
+};
+
+export const TESTIMONIAL_VIDEO: TestimonialVideo | null = {
+  src: "/depoimentos/depoimento-1.mp4",
+  poster: "/depoimentos/depoimento-1.jpg",
+  brand: "cliente da Clique Boost", // [confirmar] o nome da marca que aparece no vídeo; sem legenda ainda (falta a transcrição)
+};

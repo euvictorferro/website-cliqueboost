@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
-import { TESTIMONIALS, TESTIMONIALS_TITLE, type Testimonial } from "@/content/testimonials";
+import { TESTIMONIALS, TESTIMONIALS_TITLE, TESTIMONIAL_VIDEO, type Testimonial } from "@/content/testimonials";
+import { VideoTestimonial } from "./VideoTestimonial";
 
 const PLACEHOLDERS: Testimonial[] = Array.from({ length: 4 }, () => ({
   quote: "Espaço reservado para o depoimento do cliente, com a autorização dele.",
@@ -51,6 +52,29 @@ export function Testimonials() {
   let list = items;
   while (list.length < 4 || list.length % 2) list = [...list, ...items];
 
+  // O vídeo aparece com depoimento real; em desenvolvimento, sem vídeo, aparece o espaço reservado para ver o layout.
+  const showVideo = TESTIMONIAL_VIDEO !== null || dev;
+
+  const marquee = (
+    <div
+      className="cb-marquee-wrap"
+      style={{
+        maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
+      }}
+    >
+      <div className="cb-marquee flex w-max">
+        {[0, 1].map((copy) => (
+          <ul key={copy} className="flex gap-5 pr-5" aria-hidden={copy === 1}>
+            {list.map((t, i) => (
+              <Card key={i} t={t} flip={i % 2 === 0} />
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <section className="py-28 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 md:px-10">
@@ -65,23 +89,17 @@ export function Testimonials() {
           </Reveal>
         )}
       </div>
-      <div
-        className="cb-marquee-wrap"
-        style={{
-          maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          WebkitMaskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-        }}
-      >
-        <div className="cb-marquee flex w-max">
-          {[0, 1].map((copy) => (
-            <ul key={copy} className="flex gap-5 pr-5" aria-hidden={copy === 1}>
-              {list.map((t, i) => (
-                <Card key={i} t={t} flip={i % 2 === 0} />
-              ))}
-            </ul>
-          ))}
+      {showVideo ? (
+        // Desktop: vídeo vertical à esquerda e a faixa à direita. Celular: vídeo no topo e a faixa embaixo.
+        <div className="max-w-6xl mx-auto px-6 md:px-10 grid gap-12 md:grid-cols-[300px_minmax(0,1fr)] md:gap-10 items-center">
+          <Reveal>
+            <VideoTestimonial video={TESTIMONIAL_VIDEO} />
+          </Reveal>
+          <div className="-mx-6 md:mx-0 min-w-0">{marquee}</div>
         </div>
-      </div>
+      ) : (
+        marquee
+      )}
     </section>
   );
 }
