@@ -241,3 +241,9 @@ body {
   .cb-marquee { animation: none; }
   .cb-marquee-wrap { overflow-x: auto; }
 }
+
+
+/* Odômetro de visualizações: vira verde quando todos os dígitos chegam ao valor final. */
+.cb-counter { transition: color 700ms ease; }
+.cb-counter-done { color: var(--cb-green); }
+:root[data-theme="light"] .cb-counter-done { color: #00957a; }

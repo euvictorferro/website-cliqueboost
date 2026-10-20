@@ -108,23 +108,24 @@ export default function Home() {
         cases={[
           {
             title: "Corretor em Orlando",
-            metric: "520 mil",
+            metric: "2 milhões",
             unit: "visualizações",
-            description: "Um vídeo passou de 520 mil visualizações em 3 dias, e o painel registra 2,7 mil novos seguidores ligados a ele. Somou mais de 48 mil curtidas, comentários, compartilhamentos e salvamentos.",
+            description: "Um vídeo passou de 2 milhões de visualizações.",
           },
           {
             title: "Corretora na Flórida",
-            metric: "160 mil",
+            metric: "700 mil",
             unit: "visualizações",
-            description: "Um vídeo passou de 160 mil visualizações.",
+            description: "Um vídeo passou de 700 mil visualizações.",
           },
           {
             title: "Planejamento financeiro",
-            metric: "16 mil",
+            metric: "300 mil",
             unit: "visualizações",
-            description: "Um vídeo passou de 16 mil visualizações, em um perfil pequeno.",
+            description: "Um vídeo passou de 300 mil visualizações, em um perfil pequeno.",
           },
         ]}
+        total={{ value: 420000000, label: "visualizações acumuladas" }}
         note="Exemplos dos nossos vídeos de melhor desempenho, entre setembro e outubro de 2026. Visualizações medem alcance, não vendas. O resultado de cada perfil varia."
       />
 

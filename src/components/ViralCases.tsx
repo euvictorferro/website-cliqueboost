@@ -1,14 +1,18 @@
 import { Reveal } from "./Reveal";
+import { ViewsCounter } from "./ViewsCounter";
 
 /** Casos só em texto e número, sem vídeo, print, nome ou foto. A nota é parte da seção e não some. */
 export function ViralCases({
   title,
   cases,
   note,
+  total,
 }: {
   title: string;
   cases: { title: string; metric: string; unit: string; description: string }[];
   note: string;
+  /** Total acumulado de visualizações: box discreta abaixo dos casos, com odômetro. */
+  total?: { value: number; label: string };
 }) {
   return (
     <section className="py-28 px-6 md:px-10 bg-[var(--cb-panel)]">
@@ -32,6 +36,11 @@ export function ViralCases({
             </Reveal>
           ))}
         </div>
+        {total && (
+          <Reveal className="mt-8">
+            <ViewsCounter value={total.value} label={total.label} />
+          </Reveal>
+        )}
         <p className="mt-10 max-w-2xl border-l border-[var(--cb-border-strong)] pl-5 text-base text-[#b8b8c0] leading-relaxed">
           {note}
         </p>

@@ -22,7 +22,7 @@ function parseAssistant(text: string, streaming: boolean) {
     });
 }
 
-const bubble = "self-start max-w-[88%] rounded-2xl rounded-bl-md bg-[var(--cb-panel-raised)] px-4 py-3.5 leading-relaxed whitespace-pre-wrap";
+const bubble = "self-start max-w-[88%] rounded-2xl rounded-bl-md bg-[var(--cb-panel-raised)] px-4 py-3.5 leading-relaxed whitespace-pre-wrap break-words";
 
 /**
  * Chat com a assistente virtual, ligado à rota /api/chat (Claude Haiku, resposta em streaming).
@@ -139,7 +139,7 @@ export function ChatPreview({
 
           {messages.map((m, i) =>
             m.role === "user" ? (
-              <p key={i} className="self-end max-w-[88%] rounded-2xl rounded-br-md bg-[var(--cb-fg)] text-[var(--cb-bg)] px-4 py-3.5 leading-relaxed whitespace-pre-wrap">
+              <p key={i} className="self-end max-w-[88%] rounded-2xl rounded-br-md bg-[var(--cb-fg)] text-[var(--cb-bg)] px-4 py-3.5 leading-relaxed whitespace-pre-wrap break-words">
                 {m.content}
               </p>
             ) : m.content === "" ? (
@@ -179,7 +179,7 @@ export function ChatPreview({
               maxLength={1000}
               placeholder={placeholder}
               aria-label={placeholder}
-              className="flex-1 min-w-0 bg-transparent text-sm placeholder:text-[var(--cb-muted)] outline-none"
+              className="flex-1 min-w-0 bg-transparent text-base md:text-sm placeholder:text-[var(--cb-muted)] outline-none"
             />
             <button
               type="submit"
