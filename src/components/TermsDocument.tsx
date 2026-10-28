@@ -59,11 +59,11 @@ function parse(md: string): Block[] {
 }
 
 /** Texto com **negrito**, *itálico*, `[[campo a preencher]]` e "cláusula N" virando link para a cláusula. */
-function Inline({ text }: { text: string }) {
+function Inline({ text, base = "" }: { text: string; base?: string }) {
   const out: ReactNode[] = [];
-  text.split(/(\*(?=[^*\s])(?:[^*]|\*\*[^*]+\*\*)+?\*(?!\*)|\*\*.+?\*\*|`?\[\[.*?\]\]`?)/).forEach((tok, i) => {
+  text.split(/(\*(?=[^*\s])(?:[^*]|\*\*[^*]+\*\*)+?\*(?!\*)|\*\*.+?\*\*|`?\[\[.*?\]\]`?|\[[^\]\[]+\]\([^)]+\))/).forEach((tok, i) => {
     if (!tok) return;
-    if (tok.startsWith("**")) out.push(<strong key={i} className="font-semibold text-[var(--cb-fg)]"><Inline text={tok.slice(2, -2)} /></strong>);
+    if (tok.startsWith("**")) out.push(<strong key={i} className="font-semibold text-[var(--cb-fg)]"><Inline base={base} text={tok.slice(2, -2)} /></strong>);
     else if (tok.includes("[[")) {
       const inner = tok.replace(/`/g, "").slice(2, -2).trim();
       out.push(
@@ -71,24 +71,44 @@ function Inline({ text }: { text: string }) {
           {inner || "a preencher"}
         </span>
       );
-    } else if (tok.startsWith("*")) out.push(<em key={i}><Inline text={tok.slice(1, -1)} /></em>);
+    } else if (/^\[[^\]\[]+\]\([^)]+\)$/.test(tok)) {
+      const m = tok.match(/^\[([^\]]+)\]\(([^)]+)\)$/)!;
+      out.push(<a key={i} href={m[2]} className="underline underline-offset-2 text-[var(--cb-fg)]">{m[1]}</a>);
+    } else if (tok.startsWith("*")) out.push(<em key={i}><Inline base={base} text={tok.slice(1, -1)} /></em>);
     else
       tok.split(/(cláusula\s\d+(?:\.\d+)?)/).forEach((part, j) => {
         const m = part.match(/^cláusula\s(\d+)(\.\d+)?$/);
-        out.push(m ? <a key={`${i}-${j}`} href={m[2] ? `#c-${m[1]}${m[2]}` : `#s-${m[1]}`} className="underline underline-offset-2 hover:text-[var(--cb-fg)]">{part}</a> : part);
+        out.push(m ? <a key={`${i}-${j}`} href={m[2] ? `${base}#c-${m[1]}${m[2]}` : `${base}#s-${m[1]}`} className="underline underline-offset-2 hover:text-[var(--cb-fg)]">{part}</a> : part);
       });
   });
   return <>{out}</>;
 }
 
-export function TermsDocument({ file, archived = false }: { file: string; archived?: boolean }) {
+export function TermsDocument({
+  file,
+  archived = false,
+  docName = "dos Termos",
+  refBase = "",
+  versions = [],
+}: {
+  file: string;
+  archived?: boolean;
+  /** Para o aviso de versão arquivada ("versão arquivada dos Termos"). */
+  docName?: string;
+  /** Prefixo dos links "cláusula N" quando elas moram em outro documento (ex.: "/termos" na Política de Privacidade). */
+  refBase?: string;
+  /** Lista "Versões anteriores" (ou "Outras versões", na arquivada) no fim da página. */
+  versions?: { label: string; href: string }[];
+}) {
   const md = fs.readFileSync(path.join(process.cwd(), "src/content", file), "utf8");
   const blocks = parse(md);
   const title = blocks.find((b) => b.t === "h1") as Extract<Block, { t: "h1" }>;
   const meta = blocks.find((b) => b.t === "meta") as Extract<Block, { t: "meta" }>;
   const resumoAt = blocks.findIndex((b) => b.t === "h2" && b.id === "resumo");
-  const summary = blocks[resumoAt + 1] as Extract<Block, { t: "list" }>;
-  const body = blocks.slice(resumoAt + 2);
+  const summary = resumoAt >= 0 ? (blocks[resumoAt + 1] as Extract<Block, { t: "list" }>) : null;
+  const body = resumoAt >= 0 ? blocks.slice(resumoAt + 2) : blocks.slice(blocks.indexOf(meta) + 1);
+  const hasClauses = body.some((b) => b.t === "clause");
+  const indent = hasClauses ? "sm:ml-[3.75rem]" : "";
   const sections = body.filter((b): b is Extract<Block, { t: "h2" }> => b.t === "h2");
 
   return (
@@ -97,23 +117,19 @@ export function TermsDocument({ file, archived = false }: { file: string; archiv
         <div className="max-w-3xl">
           {archived && (
             <p className="mb-6 rounded-xl border border-[var(--cb-border-strong)] bg-[var(--cb-panel)] px-4 py-3 text-sm text-[var(--cb-muted)]">
-              Esta é a versão arquivada dos Termos. Vale para quem contratou nela.{" "}
-              <Link href="/termos" className="underline underline-offset-2 text-[var(--cb-fg)]">Ver a versão atual</Link>
+              Esta é a versão arquivada {docName}. Vale para quem contratou nela.{" "}
+              <Link href={refBase || "/termos"} className="underline underline-offset-2 text-[var(--cb-fg)]">Ver a versão atual</Link>
             </p>
           )}
           <h1 className="text-5xl md:text-7xl">{title.text.replace(/\s+—\s+Clique Boost$/, "")}</h1>
-          <p className="mt-6 text-lg text-[var(--cb-muted)]"><Inline text={meta.text} /></p>
+          <p className="mt-6 text-lg text-[var(--cb-muted)]"><Inline base={refBase} text={meta.text} /></p>
           <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
             <PrintButton />
-            {!archived && (
-              <Link href="/termos/v1-0" className="print:hidden text-sm text-[var(--cb-muted)] underline underline-offset-2 hover:text-[var(--cb-fg)]">
-                Versão anterior (1.0)
-              </Link>
-            )}
           </div>
         </div>
 
         {/* Resumo: fica no topo, antes de qualquer pagamento. */}
+        {summary && (
         <aside id="resumo" className="cb-panel mt-10 max-w-3xl rounded-2xl p-6 md:p-8" style={{ borderColor: "rgba(70,150,255,0.4)" }}>
           <h2 className="font-semibold text-[var(--cb-fg)] text-xl md:text-2xl" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.01em", fontSize: undefined }}>
             Resumo (leia antes de pagar)
@@ -122,14 +138,15 @@ export function TermsDocument({ file, archived = false }: { file: string; archiv
             {summary.items.map((it, i) => (
               <li key={i} className="flex gap-3 leading-relaxed text-[var(--cb-fg)]/85">
                 <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#3b8cff]" aria-hidden />
-                <span className={it.warn ? "font-semibold text-[var(--cb-fg)]" : ""}><Inline text={it.text} /></span>
+                <span className={it.warn ? "font-semibold text-[var(--cb-fg)]" : ""}><Inline base={refBase} text={it.text} /></span>
               </li>
             ))}
           </ul>
         </aside>
+        )}
 
         <div className="mt-14 grid gap-12 lg:grid-cols-[14rem_minmax(0,1fr)]">
-          <nav aria-label="Seções dos Termos" className="hidden lg:block print:hidden">
+          <nav aria-label="Seções do documento" className="hidden lg:block print:hidden">
             <ol className="sticky top-28 space-y-1.5 text-sm">
               {sections.map((s) => (
                 <li key={s.id}>
@@ -155,17 +172,17 @@ export function TermsDocument({ file, archived = false }: { file: string; archiv
                 return (
                   <div key={i} id={`c-${b.num}`} className="scroll-mt-28 grid grid-cols-[3rem_minmax(0,1fr)] gap-3 py-2 leading-relaxed">
                     <span className="text-[var(--cb-muted)] tabular-nums">{b.num}</span>
-                    <p className={b.warn ? "font-semibold text-[var(--cb-fg)]" : "text-[var(--cb-fg)]/85"}><Inline text={b.text} /></p>
+                    <p className={b.warn ? "font-semibold text-[var(--cb-fg)]" : "text-[var(--cb-fg)]/85"}><Inline base={refBase} text={b.text} /></p>
                   </div>
                 );
               if (b.t === "table")
                 return (
-                  <div key={i} className="my-5 overflow-x-auto rounded-xl border border-[var(--cb-border)] sm:ml-[3.75rem]">
+                  <div key={i} className={`my-5 overflow-x-auto rounded-xl border border-[var(--cb-border)] ${indent}`}>
                     <table className="w-full min-w-[32rem] text-left text-[0.95rem] leading-snug">
                       <thead>
                         <tr className="bg-[var(--cb-panel-raised)]">
                           {b.head.map((h, k) => (
-                            <th key={k} className="px-4 py-3 font-semibold text-[var(--cb-fg)]"><Inline text={h} /></th>
+                            <th key={k} className="px-4 py-3 font-semibold text-[var(--cb-fg)]"><Inline base={refBase} text={h} /></th>
                           ))}
                         </tr>
                       </thead>
@@ -173,7 +190,7 @@ export function TermsDocument({ file, archived = false }: { file: string; archiv
                         {b.rows.map((r, k) => (
                           <tr key={k} className="border-t border-[var(--cb-border)] align-top">
                             {r.map((c, m) => (
-                              <td key={m} className={`px-4 py-3 ${m === 0 ? "text-[var(--cb-fg)]" : "text-[var(--cb-fg)]/85"}`}><Inline text={c} /></td>
+                              <td key={m} className={`px-4 py-3 ${m === 0 ? "text-[var(--cb-fg)]" : "text-[var(--cb-fg)]/85"}`}><Inline base={refBase} text={c} /></td>
                             ))}
                           </tr>
                         ))}
@@ -183,11 +200,11 @@ export function TermsDocument({ file, archived = false }: { file: string; archiv
                 );
               if (b.t === "list")
                 return (
-                  <ul key={i} className="sm:ml-[3.75rem] my-1 space-y-2 py-1 leading-relaxed">
+                  <ul key={i} className={`${indent} my-1 space-y-2 py-1 leading-relaxed`}>
                     {b.items.map((it, k) => (
                       <li key={k} className="flex gap-3 text-[var(--cb-fg)]/85">
                         <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#3b8cff]" aria-hidden />
-                        <span className={it.warn ? "font-semibold text-[var(--cb-fg)]" : ""}><Inline text={it.text} /></span>
+                        <span className={it.warn ? "font-semibold text-[var(--cb-fg)]" : ""}><Inline base={refBase} text={it.text} /></span>
                       </li>
                     ))}
                   </ul>
@@ -195,12 +212,24 @@ export function TermsDocument({ file, archived = false }: { file: string; archiv
               if (b.t === "p")
                 return (
                   <p key={i} className={`py-2 leading-relaxed ${b.warn ? "font-semibold text-[var(--cb-fg)]" : "text-[var(--cb-fg)]/85"}`}>
-                    <Inline text={b.text} />
+                    <Inline base={refBase} text={b.text} />
                   </p>
                 );
               return null;
             })}
-            <p className="mt-14 text-sm text-[var(--cb-muted)]">
+            {versions.length > 0 && (
+              <div className="mt-14 border-t border-[var(--cb-border)] pt-6 print:hidden">
+                <h3 className="text-sm font-semibold text-[var(--cb-fg)]">{archived ? "Outras versões" : "Versões anteriores"}</h3>
+                <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--cb-muted)]">
+                  {versions.map((v) => (
+                    <li key={v.href}>
+                      <Link href={v.href} className="underline underline-offset-2 hover:text-[var(--cb-fg)]">{v.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <p className="mt-8 text-sm text-[var(--cb-muted)]">
               <Link href="/" className="underline underline-offset-2 hover:text-[var(--cb-fg)]">Voltar ao site</Link>
             </p>
           </article>
