@@ -30,7 +30,7 @@ export function TiltEnable() {
         if (await requestTilt()) setDone(true);
       }}
       aria-label="Ativar o efeito de inclinação do celular"
-      className="cb-glass fixed right-4 bottom-[4.75rem] z-50 w-11 h-11 rounded-full border border-[var(--cb-border-strong)] bg-[var(--cb-panel)]/70 text-[var(--cb-fg)] flex items-center justify-center"
+      className="print:hidden cb-glass fixed right-4 bottom-[4.75rem] z-50 w-11 h-11 rounded-full border border-[var(--cb-border-strong)] bg-[var(--cb-panel)]/70 text-[var(--cb-fg)] flex items-center justify-center"
     >
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <rect x="8" y="3" width="8" height="18" rx="2" transform="rotate(18 12 12)" />

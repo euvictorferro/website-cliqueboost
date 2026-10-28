@@ -52,7 +52,7 @@ export function CustomCursor() {
   }, []);
 
   return (
-    <div className="hidden md:block">
+    <div className="hidden md:block print:hidden">
       <div
         ref={dotRef}
         className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-[var(--cb-fg)] pointer-events-none z-[70] -translate-x-1/2 -translate-y-1/2"

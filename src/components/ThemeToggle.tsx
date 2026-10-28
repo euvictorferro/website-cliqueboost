@@ -31,7 +31,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={toLight ? "Mudar para o tema claro" : "Mudar para o tema escuro"}
-      className="cb-glass fixed right-4 bottom-5 md:bottom-auto md:right-6 md:top-1/2 md:-translate-y-1/2 z-50 w-11 h-11 md:w-12 md:h-12 rounded-full border border-[var(--cb-border-strong)] bg-[var(--cb-panel)]/70 text-[var(--cb-fg)] flex items-center justify-center hover:scale-105 transition-transform"
+      className="print:hidden cb-glass fixed right-4 bottom-5 md:bottom-auto md:right-6 md:top-1/2 md:-translate-y-1/2 z-50 w-11 h-11 md:w-12 md:h-12 rounded-full border border-[var(--cb-border-strong)] bg-[var(--cb-panel)]/70 text-[var(--cb-fg)] flex items-center justify-center hover:scale-105 transition-transform"
     >
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         {toLight ? (

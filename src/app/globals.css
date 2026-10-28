@@ -247,3 +247,28 @@ body {
 .cb-counter { transition: color 700ms ease; }
 .cb-counter-done { color: var(--cb-green); }
 :root[data-theme="light"] .cb-counter-done { color: #00957a; }
+
+/* Campo ainda em aberto nos Termos (texto entre [[colchetes duplos]] no arquivo): destacado e fácil de achar. */
+.cb-field {
+  display: inline;
+  padding: 0.05em 0.4em;
+  border-radius: 0.35em;
+  border: 1px dashed rgba(230, 180, 0, 0.75);
+  background: rgba(255, 215, 0, 0.16);
+  color: var(--cb-fg);
+  font-weight: 500;
+}
+
+/* Impressão e PDF: página limpa, fundo branco, sem menu, rodapé nem botões. */
+@media print {
+  :root, :root[data-theme] {
+    --cb-bg: #fff; --cb-panel: #fff; --cb-panel-raised: #f2f2f2; --cb-fg: #000; --cb-muted: #444;
+    --cb-border: #ccc; --cb-border-strong: #999; color-scheme: light;
+  }
+  html, body { background: #fff !important; color: #000 !important; }
+  header, footer, .cb-grain, canvas { display: none !important; }
+  .cb-field { background: #fff3b0; border-color: #b58900; }
+  tr, .cb-panel { break-inside: avoid; }
+  h2 { break-after: avoid; }
+  a { color: inherit; text-decoration: none; }
+}

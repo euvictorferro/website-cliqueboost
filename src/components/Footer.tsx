@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Logo } from "./Logo";
 
 const PHONE = "+1 (239) 821-4737";
@@ -11,6 +12,7 @@ export function Footer() {
         <div className="flex flex-col items-center md:items-end gap-2 text-center md:text-right">
           <a href={`tel:${PHONE.replace(/[^+\d]/g, "")}`} className="hover:text-[var(--cb-fg)] transition-colors">{PHONE}</a>
           <a href={`mailto:${EMAIL}`} className="hover:text-[var(--cb-fg)] transition-colors">{EMAIL}</a>
+          <Link href="/termos" className="hover:text-[var(--cb-fg)] transition-colors">Termos de Serviço</Link>
           <p className="mt-2">© {new Date().getFullYear()} Clique Boost, todos os direitos reservados.</p>
         </div>
       </div>
