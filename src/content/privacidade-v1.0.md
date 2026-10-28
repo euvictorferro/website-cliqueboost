@@ -1,5 +1,5 @@
 # Política de Privacidade — Clique Boost
-Versão 1.0 · Vigente desde `[[data de publicação]]`
+Versão 1.0 · Vigente desde 28/10/2026
 
 ## 1. Quem somos
 A **Clique Boost** é operada por **69.825.866 Vicenzo Valentino Puls Ferro** (MEI), CNPJ **69.825.866/0001-38**, Rua das Mangueiras, 90, Caçapava/SP, CEP 12294-556 ("**Clique Boost**", "nós"). Somos agência de marketing para empreendedores brasileiros nos Estados Unidos.
