@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { PrintButton } from "./PrintButton";
 
 /**
- * Página de Termos de Serviço. O texto mora em `src/content/termos.md` (é lá que o Victor preenche os campos
+ * Página de Termos de Serviço. O texto mora em `src/content/termos-v*.md` (é lá que o Victor preenche os campos
  * `[[entre colchetes duplos]]`). Aqui o markdown é lido na hora do build e desenhado no padrão do site.
  * Regras do texto: cláusulas marcadas com ⚠ saem em negrito (o ⚠ não aparece); campos em aberto saem destacados.
  */
@@ -61,7 +61,7 @@ function parse(md: string): Block[] {
 /** Texto com **negrito**, *itálico*, `[[campo a preencher]]` e "cláusula N" virando link para a cláusula. */
 function Inline({ text }: { text: string }) {
   const out: ReactNode[] = [];
-  text.split(/(\*\*.+?\*\*|`?\[\[.*?\]\]`?|\*.+?\*)/).forEach((tok, i) => {
+  text.split(/(\*(?=[^*\s])(?:[^*]|\*\*[^*]+\*\*)+?\*(?!\*)|\*\*.+?\*\*|`?\[\[.*?\]\]`?)/).forEach((tok, i) => {
     if (!tok) return;
     if (tok.startsWith("**")) out.push(<strong key={i} className="font-semibold text-[var(--cb-fg)]"><Inline text={tok.slice(2, -2)} /></strong>);
     else if (tok.includes("[[")) {
@@ -71,18 +71,18 @@ function Inline({ text }: { text: string }) {
           {inner || "a preencher"}
         </span>
       );
-    } else if (tok.startsWith("*")) out.push(<em key={i}>{tok.slice(1, -1)}</em>);
+    } else if (tok.startsWith("*")) out.push(<em key={i}><Inline text={tok.slice(1, -1)} /></em>);
     else
-      tok.split(/(cláusula\s\d+)/).forEach((part, j) => {
-        const m = part.match(/^cláusula\s(\d+)$/);
-        out.push(m ? <a key={`${i}-${j}`} href={`#s-${m[1]}`} className="underline underline-offset-2 hover:text-[var(--cb-fg)]">{part}</a> : part);
+      tok.split(/(cláusula\s\d+(?:\.\d+)?)/).forEach((part, j) => {
+        const m = part.match(/^cláusula\s(\d+)(\.\d+)?$/);
+        out.push(m ? <a key={`${i}-${j}`} href={m[2] ? `#c-${m[1]}${m[2]}` : `#s-${m[1]}`} className="underline underline-offset-2 hover:text-[var(--cb-fg)]">{part}</a> : part);
       });
   });
   return <>{out}</>;
 }
 
-export function TermsDocument() {
-  const md = fs.readFileSync(path.join(process.cwd(), "src/content/termos.md"), "utf8");
+export function TermsDocument({ file, archived = false }: { file: string; archived?: boolean }) {
+  const md = fs.readFileSync(path.join(process.cwd(), "src/content", file), "utf8");
   const blocks = parse(md);
   const title = blocks.find((b) => b.t === "h1") as Extract<Block, { t: "h1" }>;
   const meta = blocks.find((b) => b.t === "meta") as Extract<Block, { t: "meta" }>;
@@ -95,9 +95,22 @@ export function TermsDocument() {
     <div className="px-6 md:px-10 pt-32 md:pt-40 pb-24">
       <div className="max-w-6xl mx-auto">
         <div className="max-w-3xl">
+          {archived && (
+            <p className="mb-6 rounded-xl border border-[var(--cb-border-strong)] bg-[var(--cb-panel)] px-4 py-3 text-sm text-[var(--cb-muted)]">
+              Esta é a versão arquivada dos Termos. Vale para quem contratou nela.{" "}
+              <Link href="/termos" className="underline underline-offset-2 text-[var(--cb-fg)]">Ver a versão atual</Link>
+            </p>
+          )}
           <h1 className="text-5xl md:text-7xl">{title.text.replace(/\s+—\s+Clique Boost$/, "")}</h1>
           <p className="mt-6 text-lg text-[var(--cb-muted)]"><Inline text={meta.text} /></p>
-          <div className="mt-6"><PrintButton /></div>
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <PrintButton />
+            {!archived && (
+              <Link href="/termos/v1-0" className="print:hidden text-sm text-[var(--cb-muted)] underline underline-offset-2 hover:text-[var(--cb-fg)]">
+                Versão anterior (1.0)
+              </Link>
+            )}
+          </div>
         </div>
 
         {/* Resumo: fica no topo, antes de qualquer pagamento. */}
@@ -140,7 +153,7 @@ export function TermsDocument() {
                 );
               if (b.t === "clause")
                 return (
-                  <div key={i} className="grid grid-cols-[3rem_minmax(0,1fr)] gap-3 py-2 leading-relaxed">
+                  <div key={i} id={`c-${b.num}`} className="scroll-mt-28 grid grid-cols-[3rem_minmax(0,1fr)] gap-3 py-2 leading-relaxed">
                     <span className="text-[var(--cb-muted)] tabular-nums">{b.num}</span>
                     <p className={b.warn ? "font-semibold text-[var(--cb-fg)]" : "text-[var(--cb-fg)]/85"}><Inline text={b.text} /></p>
                   </div>
@@ -167,6 +180,17 @@ export function TermsDocument() {
                       </tbody>
                     </table>
                   </div>
+                );
+              if (b.t === "list")
+                return (
+                  <ul key={i} className="sm:ml-[3.75rem] my-1 space-y-2 py-1 leading-relaxed">
+                    {b.items.map((it, k) => (
+                      <li key={k} className="flex gap-3 text-[var(--cb-fg)]/85">
+                        <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#3b8cff]" aria-hidden />
+                        <span className={it.warn ? "font-semibold text-[var(--cb-fg)]" : ""}><Inline text={it.text} /></span>
+                      </li>
+                    ))}
+                  </ul>
                 );
               if (b.t === "p")
                 return (

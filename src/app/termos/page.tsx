@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description: "Termos de Serviço da Clique Boost.",
 };
 
+/** Versão atual. A anterior fica arquivada em /termos/v1-0 (quem comprou nela continua nela). */
 export default function TermosPage() {
-  return <TermsDocument />;
+  return <TermsDocument file="termos-v1.1.md" />;
 }
