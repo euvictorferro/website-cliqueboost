@@ -1,7 +1,12 @@
 // Recebe o formulário de /cancelar. Com RESEND_API_KEY, envia o aviso para contato@ e a confirmação para o cliente.
 // Sem a chave, responde sent:false e a página abre o e-mail do cliente já preenchido (o pedido nunca se perde).
+// Em qualquer caso, avisa o sistema da equipe (alerta no WhatsApp e confirmação por escrito ao cliente) depois de
+// responder, sem bloquear nem derrubar a resposta se esse aviso falhar.
+import { after } from "next/server";
+
 const TO = "contato@cliqueboost.io";
 const FROM = process.env.CANCEL_FROM_EMAIL || "Clique Boost <contato@cliqueboost.io>";
+const TEAM_URL = process.env.CANCELAMENTO_URL || "https://tamper-obedience-delivery.ngrok-free.dev/cancelamento";
 const SERVICES = ["Social media", "Tráfego pago", "Automação com IA", "Complemento", "Método Completo"];
 
 const hits = new Map<string, { n: number; reset: number }>(); // ponytail: por instância; trocar por limite compartilhado se houver abuso
@@ -17,6 +22,24 @@ function limited(ip: string) {
 
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 const json = (b: unknown, status = 200) => Response.json(b, { status, headers: { "Cache-Control": "no-store" } });
+
+/** Avisa o sistema da equipe. O segredo só existe aqui no servidor (CANCELAMENTO_SEGREDO). Falha só vira log, sem dados do cliente. */
+async function notifyTeam(body: Record<string, unknown>) {
+  const segredo = process.env.CANCELAMENTO_SEGREDO;
+  if (!segredo) return console.error("cancelar: CANCELAMENTO_SEGREDO não configurado, sistema da equipe não avisado");
+  try {
+    const r = await fetch(TEAM_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Segredo": segredo, "ngrok-skip-browser-warning": "1" },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(10_000),
+    });
+    const out = await r.json().catch(() => null);
+    if (!r.ok || !out?.recebido) console.error("cancelar: sistema da equipe respondeu", r.status);
+  } catch (e) {
+    console.error("cancelar: falha ao avisar o sistema da equipe", e instanceof Error ? e.name : "erro");
+  }
+}
 
 async function send(key: string, payload: Record<string, unknown>) {
   const r = await fetch("https://api.resend.com/emails", {
@@ -50,6 +73,8 @@ export async function POST(request: Request) {
   const motivo = str("motivo", 1500);
   if (!nome || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !tipo || !servicos.length || b.confirmo !== true || (tipo === "reembolso" && !item))
     return json({ error: "dados" }, 400);
+
+  after(() => notifyTeam({ nome, email, tipo, servicos, motivo, website: str("website", 200) }));
 
   const key = process.env.RESEND_API_KEY;
   if (!key) return json({ ok: true, sent: false });
