@@ -22,7 +22,7 @@ Versão 1.2 · Vigente desde 28/10/2026
 
 | Serviço | O que inclui | O que não inclui |
 |---|---|---|
-| **Social media estratégico** | Estratégia de conteúdo e calendário com roteiros: **20 roteiros por mês** (5 por semana) | Gravação, edição de vídeo, design gráfico e publicação. O Cliente grava e posta |
+| **Social media estratégico** | Estratégia de conteúdo e calendário com roteiros: **20 roteiros por mês** (5 por semana) e **publicação dos posts por nós** | Gravação e edição de vídeo e design gráfico (o Cliente grava os vídeos) |
 | **Tráfego pago** | Estratégia, criação e gestão de campanhas no **Meta** (Facebook e Instagram) | Verba de anúncios; criativos (feitos pelo Cliente com nossa orientação); outras plataformas |
 | **Automação com IA** | Instalação de uma automação de atendimento e qualificação de contatos no **WhatsApp** e manutenção mensal de até **2 horas por mês** (cláusula 11) | Custos de infraestrutura (VPS, API, tokens, domínio); novos fluxos e canais; horas além das 2 incluídas (orçadas à parte) |
 | **Edição, design e site (Complemento)** | **20 peças por mês**, somando artes e vídeos (por exemplo, 10 artes + 10 vídeos), e **1 landing page durante os 6 meses**, que pode ser ajustada | Volume acima dos limites; sites com mais de 1 página |
@@ -91,8 +91,8 @@ Versão 1.2 · Vigente desde 28/10/2026
 
 ## 7. O que precisamos de você
 7.1. **Preencher o briefing**, fornecer os **acessos** no kickoff e manter as contas de anúncios e ferramentas **ativas e pagas**.
-7.2. **Gravar e publicar** o conteúdo, e responder e aprovar dentro de **1 dia útil**. Sem resposta, o item é considerado aprovado.
-7.3. **Revisar tudo antes de publicar** (cláusula 8.2).
+7.2. **Gravar** os vídeos, e responder e aprovar dentro de **1 dia útil**. Sem resposta, o item é considerado aprovado e **nós o publicamos**.
+7.3. **Revisar tudo antes de aprovar** (cláusula 8.2).
 7.4. Atrasos do Cliente atrasam as entregas, sem desconto ou reembolso (cláusula 5.3).
 7.5. O Cliente garante que os materiais que fornece são seus ou autorizados.
 
@@ -100,7 +100,6 @@ Versão 1.2 · Vigente desde 28/10/2026
 8.1. **A entrega é automatizada.** Uma **IA lê o seu briefing e monta a estratégia** do serviço contratado. **Todo documento gerado por IA (estratégia, calendário e roteiros) é revisado por uma pessoa da Clique Boost antes de ser entregue.** A revisão não garante ausência de erros, e o Cliente continua obrigado a revisar (cláusula 7.3). As conversas do bot de atendimento ocorrem em tempo real, **sem revisão humana prévia**.
 8.2. A IA pode errar. Por isso o Cliente deve **revisar e aprovar** estratégias, roteiros, anúncios e fluxos antes de usar.
 8.3. O atendimento automatizado **se identifica como IA** quando a lei ou a plataforma exigir.
-8.4. Contratar a Clique Boost **não significa** contar com equipe dedicada ou gestão personalizada por especialistas.
 
 ## 9. Revisões
 9.1. Cada roteiro ou peça tem até **2 rodadas de ajuste** dentro do briefing. A landing page do Complemento também pode ser ajustada dentro dessas 2 rodadas. Novas rodadas ou mudanças de rumo são serviço extra.
@@ -119,7 +118,7 @@ Versão 1.2 · Vigente desde 28/10/2026
 ## 12. Automação, dados e setores regulados
 12.1. Os leads atendidos pela automação são **do Cliente**, que é o responsável pelos dados e por ter **autorização** para contatá-los, respeitando pedidos de parar de receber mensagens e as regras de cada plataforma (WhatsApp/Meta) e da lei (nos EUA, TCPA e CAN-SPAM; no Brasil, LGPD).
 12.2. Tratamos dados pessoais só para executar o contrato. Contato: contato@cliqueboost.io. Veja nossa **Política de Privacidade** em [cliqueboost.io/privacidade](/privacidade), que explica quais dados usamos, por quê, por quanto tempo e como exercer seus direitos.
-12.3. **Setores regulados:** o Cliente atua em atividade regulada (seguros, financeiro, imobiliário) e é o único responsável por **licenças, divulgações obrigatórias e veracidade** do que publica. Não fazemos promessas em nome do Cliente.
+12.3. **Setores regulados:** o Cliente atua em atividade regulada (seguros, financeiro, imobiliário) e é o único responsável por **licenças, divulgações obrigatórias e veracidade** do que é publicado em seu nome. Não fazemos promessas em nome do Cliente.
 12.4. **Gravação das reuniões.** Nossas reuniões (como o kickoff) são **gravadas e transcritas por uma ferramenta de IA** de terceiros, para registrar o que foi combinado e montar a estratégia. A gravação pode conter dados do Cliente e de outros participantes. O Cliente **concorda** com a gravação e se compromete a **avisar os demais participantes** que ele convidar. Avisaremos no início de cada reunião, e o Cliente pode pedir que **não gravemos**; nesse caso, o registro será feito por escrito. Guardamos a **gravação (áudio e vídeo) por 90 dias** e a **transcrição e o resumo** durante o contrato e por **12 meses** depois do seu fim; depois disso, **excluímos**. Guardamos por mais tempo só o que a lei exigir ou o que for necessário para nos defender em uma disputa em andamento. O Cliente pode pedir a exclusão antes, por e-mail, ressalvados esses casos.
 
 ## 13. Sem garantia de resultados
@@ -127,7 +126,7 @@ Versão 1.2 · Vigente desde 28/10/2026
 
 ## 14. Limite de responsabilidade
 14.1. **⚠** Nossa responsabilidade total fica limitada ao **valor pago pelo Cliente nos 3 últimos meses**.
-14.2. Não respondemos por lucros cessantes, bloqueio de contas ou números por decisão das plataformas, falhas de terceiros (Meta, Google, Stripe, WhatsApp, provedores de IA e de servidor) nem por conteúdo publicado sem revisão do Cliente.
+14.2. Não respondemos por lucros cessantes, bloqueio de contas ou números por decisão das plataformas, falhas de terceiros (Meta, Google, Stripe, WhatsApp, provedores de IA e de servidor) nem por conteúdo aprovado pelo Cliente, de forma expressa ou tácita.
 14.3. O limite não vale para dolo nem para o que a lei não permite limitar.
 
 ## 15. Confidencialidade
