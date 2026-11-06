@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { ScheduleButton } from "./ScheduleButton";
 
@@ -11,6 +12,8 @@ import { ScheduleButton } from "./ScheduleButton";
  */
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  // Nas páginas de indicação o único botão é o do WhatsApp, para não competir com o agendamento.
+  const hideCta = usePathname().startsWith("/indique");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -41,9 +44,11 @@ export function Navbar() {
           <Logo size={44} />
         </Link>
 
-        <ScheduleButton className="cb-neon cb-press inline-flex items-center min-h-11 text-sm font-semibold px-5 rounded-full">
-          Agendar uma conversa
-        </ScheduleButton>
+        {!hideCta && (
+          <ScheduleButton className="cb-neon cb-press inline-flex items-center min-h-11 text-sm font-semibold px-5 rounded-full">
+            Agendar uma conversa
+          </ScheduleButton>
+        )}
       </nav>
     </header>
   );

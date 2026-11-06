@@ -41,7 +41,7 @@ function Card({ t, flip }: { t: Testimonial; flip: boolean }) {
  * Seção de depoimentos em faixa contínua (pausa ao passar o mouse). O cliente aparece só pelo logo, sem nome nem
  * foto. Sem depoimentos reais, só aparece em desenvolvimento (espaço reservado) e fica oculta no site publicado.
  */
-export function Testimonials() {
+export function Testimonials({ withVideo = true }: { withVideo?: boolean }) {
   const real = TESTIMONIALS.length > 0;
   const dev = process.env.NODE_ENV !== "production";
   if (!real && !dev) return null;
@@ -53,7 +53,7 @@ export function Testimonials() {
   while (list.length < 4 || list.length % 2) list = [...list, ...items];
 
   // O vídeo aparece com depoimento real; em desenvolvimento, sem vídeo, aparece o espaço reservado para ver o layout.
-  const showVideo = TESTIMONIAL_VIDEO !== null || dev;
+  const showVideo = withVideo && (TESTIMONIAL_VIDEO !== null || dev);
 
   const marquee = (
     <div
