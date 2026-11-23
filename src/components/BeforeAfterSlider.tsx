@@ -5,7 +5,8 @@ import { useState } from "react";
 import type { PhotoProject } from "@/content/photo-projects";
 
 /** Comparação antes/depois com controle de arrastar (input range). Proporção fixa para o layout não pular. */
-export function BeforeAfterSlider({ project, large = false }: { project: PhotoProject; large?: boolean }) {
+export function BeforeAfterSlider({ project }: { project: PhotoProject }) {
+  const large = project.large ?? false;
   const [pos, setPos] = useState(50);
   const caption = `${project.room}: ${project.adjust}.`;
 

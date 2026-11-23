@@ -2,6 +2,7 @@
  * Projetos de exemplo da página /photos. Cada item é um par antes/depois do mesmo enquadramento e mesmo tamanho.
  * Enquanto `before` ou `after` estiver vazio, a página mostra um espaço reservado (não usar banco de imagem).
  * `credit` é o crédito da foto (dono ou fonte), mostrado em texto pequeno abaixo do slider.
+ * `large` ocupa a largura toda da grade (destaque).
  */
 export type PhotoProject = {
   room: string;
@@ -10,9 +11,19 @@ export type PhotoProject = {
   after: string;
   credit: string;
   alt: string;
+  large?: boolean;
 };
 
 export const PHOTO_PROJECTS: PhotoProject[] = [
+  {
+    room: "Exterior",
+    adjust: "brighter facade, richer sky, greener lawn",
+    before: "/photos/park-estates/fachada-before.webp",
+    after: "/photos/park-estates/fachada-after.webp",
+    credit: "",
+    alt: "Two-story house exterior with a driveway and lawn",
+    large: true,
+  },
   {
     room: "Pool area",
     adjust: "clearer water, cleaner lawn and edges",
@@ -22,20 +33,21 @@ export const PHOTO_PROJECTS: PhotoProject[] = [
     alt: "Backyard pool beside the house",
   },
   {
-    room: "Living room",
-    adjust: "brighter light, true colors, cleaner walls",
-    before: "/photos/park-estates/sala-formal-before.webp",
-    after: "/photos/park-estates/sala-formal-after.webp",
+    room: "Patio",
+    adjust: "richer sky, clearer water, true colors",
+    before: "/photos/park-estates/varanda-before.webp",
+    after: "/photos/park-estates/varanda-after.webp",
     credit: "",
-    alt: "Formal living room with a piano and a sofa",
+    alt: "Covered patio with outdoor seating next to a pool",
   },
   {
-    room: "Loft",
-    adjust: "brighter light, true colors, cleaner walls",
-    before: "/photos/park-estates/loft-before.webp",
-    after: "/photos/park-estates/loft-after.webp",
+    room: "Kitchen",
+    adjust: "brighter light, true colors, cleaner counters",
+    before: "/photos/park-estates/cozinha-before.webp",
+    after: "/photos/park-estates/cozinha-after.webp",
     credit: "",
-    alt: "Loft with a large sofa",
+    alt: "Kitchen with an island, bar stools and pendant lights",
+    large: true,
   },
   {
     room: "Suite",
@@ -46,11 +58,11 @@ export const PHOTO_PROJECTS: PhotoProject[] = [
     alt: "Suite with a bed and windows",
   },
   {
-    room: "Bedroom",
+    room: "Living room",
     adjust: "brighter light, true colors",
-    before: "/photos/park-estates/quarto-before.webp",
-    after: "/photos/park-estates/quarto-after.webp",
+    before: "/photos/park-estates/sala-sofa-before.webp",
+    after: "/photos/park-estates/sala-sofa-after.webp",
     credit: "",
-    alt: "Bedroom with white furniture and a bed",
+    alt: "Living room with a large sectional sofa and plants",
   },
 ];

@@ -46,7 +46,7 @@ export function PhotoLeadForm() {
   if (status === "sent" || status === "mailto") {
     return (
       <p className="cb-panel rounded-2xl p-8 text-lg">
-        Thanks! We received your request. We will send your free sample of 12 photos to {" "}
+        Thanks! We received your request. We will send your free sample of 5 photos to{" "}
         the email you gave us, within 48 hours.
       </p>
     );
