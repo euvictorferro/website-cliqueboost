@@ -7,7 +7,8 @@ import type { PhotoProject } from "@/content/photo-projects";
 /**
  * Comparação antes/depois. O arrasto vale na foto inteira (Pointer Events), com `touch-action: pan-y`: no celular o
  * movimento horizontal move o controle e o vertical continua rolando a página. Um input range invisível fica só para
- * o teclado e leitores de tela. Ao entrar na tela, o controle faz um vai e vem para mostrar que dá para arrastar.
+ * o teclado e leitores de tela. As fotos carregam todas de uma vez (loading="eager") e direto do arquivo WebP (unoptimized,
+ * já são leves): no celular o carregamento preguiçoso e o otimizador deixavam algumas em branco. Ao entrar na tela, o controle faz um vai e vem para mostrar que dá para arrastar.
  */
 export function BeforeAfterSlider({ project }: { project: PhotoProject }) {
   const [pos, setPos] = useState(50);
@@ -84,9 +85,9 @@ export function BeforeAfterSlider({ project }: { project: PhotoProject }) {
         style={{ touchAction: "pan-y" }}
         className="relative aspect-[4/3] w-full cursor-ew-resize select-none overflow-hidden rounded-2xl bg-[var(--cb-panel-raised)]"
       >
-        <Image src={project.after} alt={`${project.alt}, after`} fill draggable={false} sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
+        <Image src={project.after} alt={`${project.alt}, after`} fill draggable={false} loading="eager" unoptimized sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
         <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
-          <Image src={project.before} alt={`${project.alt}, before`} fill draggable={false} sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
+          <Image src={project.before} alt={`${project.alt}, before`} fill draggable={false} loading="eager" unoptimized sizes="(min-width: 768px) 60vw, 100vw" className="object-cover" />
         </div>
         <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-xs text-white">Before</span>
         <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-black/60 px-3 py-1 text-xs text-white">After</span>
