@@ -5,7 +5,15 @@ import ParticleObject from "@/components/canvasui/ParticleObject";
 import { useSmall } from "@/lib/use-small";
 import { Reveal } from "./Reveal";
 
-const ITEMS = [
+const ITEMS_EN = [
+  { title: "Answering everything by hand", description: "The AI answers and qualifies the contact. You step in when they are ready." },
+  { title: "Juggling vendors", description: "Ads, content, website and customer service with one team." },
+  { title: "Building reports", description: "You follow it all in the Dash: Instagram metrics, content, tasks and calendar." },
+  { title: "Chasing deadlines", description: "Agreed deadlines and a quick reply within business hours." },
+  { title: "Learning technology", description: "We take care of the AI and the tools. You take care of your business." },
+];
+
+const ITEMS_PT = [
   { title: "Responder tudo na mão", description: "A IA responde e qualifica o contato. Você entra quando ele está pronto." },
   { title: "Juntar fornecedores", description: "Anúncio, conteúdo, site e atendimento com um time só." },
   { title: "Montar relatório", description: "Você acompanha pelo Dash: métricas do Instagram, conteúdo, tarefas e calendário." },
@@ -24,7 +32,8 @@ const SHIFT = [10, -12, 6, -8, 4]; // deslocamento lateral de cada bloco na pilh
  * um a um (de cima para baixo) e cada linha da lista acende com o título riscado. No fim a pilha fica vazia e o
  * símbolo da marca aparece no lugar.
  */
-export function WeightLift({ title }: { title: string }) {
+export function WeightLift({ title, lang = "pt" }: { title: string; lang?: "pt" | "en" }) {
+  const ITEMS = lang === "en" ? ITEMS_EN : ITEMS_PT;
   const n = ITEMS.length;
   const small = useSmall();
   const [phase, setPhase] = useState(-1); // -1 parado, 0..n-1 blocos já retirados (inclusive), n = tudo livre

@@ -1,4 +1,4 @@
-import { CHAT_MODEL, SYSTEM_PROMPT } from "@/lib/chat-prompt";
+import { CHAT_MODEL, SYSTEM_PROMPT, SYSTEM_PROMPT_EN } from "@/lib/chat-prompt";
 
 // Chamada à API da Claude feita só aqui, no servidor: a chave nunca chega ao navegador.
 const API_URL = "https://api.anthropic.com/v1/messages";
@@ -66,6 +66,8 @@ export async function POST(request: Request) {
   }
   const messages = parseMessages(body);
   if (!messages) return json({ error: "mensagens" }, 400);
+  // Versão em inglês do site (/en) recebe o prompt em inglês; qualquer outro valor cai no português.
+  const english = (body as { lang?: unknown })?.lang === "en";
 
   let upstream: Response;
   try {
@@ -81,7 +83,7 @@ export async function POST(request: Request) {
         max_tokens: MAX_TOKENS,
         temperature: 0.7,
         stream: true,
-        system: SYSTEM_PROMPT,
+        system: english ? SYSTEM_PROMPT_EN : SYSTEM_PROMPT,
         messages,
       }),
     });

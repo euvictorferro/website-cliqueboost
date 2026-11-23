@@ -5,12 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "./Logo";
 import { ScheduleButton } from "./ScheduleButton";
+import { UI, type Lang } from "@/lib/i18n";
 
 /**
  * Cabeçalho flutuante: no topo da página fica solto e largo; ao rolar, encolhe numa pílula de vidro
  * centralizada, com o logo um pouco menor. Só logo e o botão de ação, sem menu.
  */
-export function Navbar() {
+export function Navbar({ lang = "pt" }: { lang?: Lang }) {
+  const t = UI[lang];
   const [scrolled, setScrolled] = useState(false);
   // Nas páginas de indicação o único botão é o do WhatsApp, para não competir com o agendamento.
   const hideCta = usePathname().startsWith("/indique");
@@ -33,7 +35,7 @@ export function Navbar() {
       >
         <Link
           href="/"
-          aria-label="Clique Boost, início"
+          aria-label={t.home}
           className="inline-flex items-center"
           style={{
             transform: scrolled ? "scale(0.82)" : "scale(1)",
@@ -46,7 +48,7 @@ export function Navbar() {
 
         {!hideCta && (
           <ScheduleButton className="cb-neon cb-press inline-flex items-center min-h-11 text-sm font-semibold px-5 rounded-full">
-            Agendar uma conversa
+            {t.cta}
           </ScheduleButton>
         )}
       </nav>

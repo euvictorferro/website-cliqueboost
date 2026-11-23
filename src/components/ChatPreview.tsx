@@ -7,6 +7,7 @@ import { ScheduleButton } from "./ScheduleButton";
 type Msg = { role: "user" | "assistant"; content: string };
 
 const ERROR_TEXT = "Não consegui responder agora. Tente de novo em instantes ou clique em Agendar para falar com uma pessoa.";
+const ERROR_TEXT_EN = "I could not answer right now. Try again in a moment, or click Book a call to talk to a person.";
 
 // A resposta da IA é uma sequência de balões separados por linha em branco; dois marcadores têm função especial.
 function parseAssistant(text: string, streaming: boolean) {
@@ -36,7 +37,9 @@ export function ChatPreview({
   replies,
   privacy,
   placeholder,
+  lang = "pt",
 }: {
+  lang?: "pt" | "en";
   name: string;
   badge: string;
   status?: string;
@@ -68,7 +71,7 @@ export function ChatPreview({
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, lang }),
       });
       if (!res.ok || !res.body) throw new Error(String(res.status));
       const reader = res.body.getReader();
@@ -143,7 +146,7 @@ export function ChatPreview({
                 {m.content}
               </p>
             ) : m.content === "" ? (
-              <p key={i} className={`${bubble} text-[var(--cb-muted)]`} aria-label="Digitando">
+              <p key={i} className={`${bubble} text-[var(--cb-muted)]`} aria-label={lang === "en" ? "Typing" : "Digitando"}>
                 <span className="animate-pulse">...</span>
               </p>
             ) : (
@@ -168,7 +171,7 @@ export function ChatPreview({
             )
           )}
 
-          {failed && <p className={`${bubble} text-[var(--cb-muted)]`}>{ERROR_TEXT}</p>}
+          {failed && <p className={`${bubble} text-[var(--cb-muted)]`}>{lang === "en" ? ERROR_TEXT_EN : ERROR_TEXT}</p>}
         </div>
 
         <div className="px-5 pb-5">
@@ -184,7 +187,7 @@ export function ChatPreview({
             <button
               type="submit"
               disabled={busy || !input.trim()}
-              aria-label="Enviar"
+              aria-label={lang === "en" ? "Send" : "Enviar"}
               className="bg-[var(--cb-fg)] w-11 h-11 rounded-full flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--cb-bg)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">

@@ -2,6 +2,27 @@ import Image from "next/image";
 import { Reveal } from "./Reveal";
 import { DEFAULT_CAPTION } from "@/content/dashScreens";
 import type { MobileScreen } from "@/content/dashMobile";
+import { DEFAULT_CAPTION_EN } from "@/content/dashScreens";
+import type { Lang } from "@/lib/i18n";
+
+const COPY_EN = {
+  soon: {
+    title: "The Dash is coming to your phone too",
+    text: "We are finishing the Clique Boost Dash app for iPhone, with the same dashboard in your hand. Until it arrives, the dashboard already opens in your phone browser.",
+    call: "iPhone app coming soon.",
+  },
+  live: {
+    title: "The Dash on your phone",
+    text: "The Clique Boost Dash app is already on the App Store. Follow your work from anywhere.",
+    call: "Available on the App Store.",
+  },
+};
+
+const ALT_EN: Record<string, string> = {
+  tasks: "Mobile mockup of the Dash app with the task list",
+  dashboard: "Mobile mockup of the Dash app with Instagram metrics",
+  conteudos: "Mobile mockup of the Dash app with the content board",
+};
 
 const COPY = {
   soon: {
@@ -32,15 +53,19 @@ function Phone({ screen, className = "" }: { screen: MobileScreen; className?: s
  * O selo oficial da Apple (public/brand/app-store-badge.png) e o link só entram com live + href.
  */
 export function DashMobileSection({
-  screens,
+  screens: allScreens,
   live = false,
   appStoreHref,
+  lang = "pt",
 }: {
   screens: MobileScreen[];
   live?: boolean;
   appStoreHref?: string;
+  lang?: Lang;
 }) {
-  const c = live ? COPY.live : COPY.soon;
+  const en = lang === "en";
+  const c = en ? (live ? COPY_EN.live : COPY_EN.soon) : live ? COPY.live : COPY.soon;
+  const screens = en ? allScreens.map((s) => ({ ...s, alt: ALT_EN[s.key] ?? s.alt })) : allScreens;
   const shown = screens.slice(0, 3);
   // Celular do meio na frente e um pouco mais alto; os outros recuam para os lados.
   const offsets = shown.length === 3 ? ["translate-y-6 -rotate-3 md:translate-y-10", "-translate-y-1 z-10 md:-translate-y-2", "translate-y-6 rotate-3 md:translate-y-10"] : [];
@@ -55,7 +80,7 @@ export function DashMobileSection({
           <p className="text-[var(--cb-muted)] text-lg leading-relaxed mb-8">{c.text}</p>
           {live && appStoreHref ? (
             <a href={appStoreHref} target="_blank" rel="noopener" className="inline-flex">
-              <Image src="/brand/app-store-badge.png" alt="Baixar na App Store" width={135} height={40} className="h-11 w-auto" />
+              <Image src="/brand/app-store-badge.png" alt={en ? "Download on the App Store" : "Baixar na App Store"} width={135} height={40} className="h-11 w-auto" />
             </a>
           ) : (
             <p className="cb-chip inline-flex items-center gap-3 rounded-full px-5 min-h-11 text-sm font-medium">
@@ -77,7 +102,7 @@ export function DashMobileSection({
                 </Reveal>
               ))}
             </div>
-            <p className="mt-12 md:mt-16 text-sm text-[var(--cb-muted)] text-center">{DEFAULT_CAPTION}</p>
+            <p className="mt-12 md:mt-16 text-sm text-[var(--cb-muted)] text-center">{en ? DEFAULT_CAPTION_EN : DEFAULT_CAPTION}</p>
           </div>
         )}
       </div>

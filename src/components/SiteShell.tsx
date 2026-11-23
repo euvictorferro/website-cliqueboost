@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Instrument_Serif, Geist } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -8,7 +8,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { TiltEnable } from "@/components/TiltEnable";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import "./globals.css";
+import type { Lang } from "@/lib/i18n";
 
 const display = Instrument_Serif({
   variable: "--font-display",
@@ -22,19 +22,11 @@ const body = Geist({
   subsets: ["latin", "latin-ext"],
 });
 
-export const metadata: Metadata = {
-  title: "Clique Boost | Marketing para brasileiros nos EUA",
-  description:
-    "Anúncios, atendimento com IA, social media, sites, design e brand guidelines integrados no método BoostConnect, para profissionais brasileiros nos EUA.",
-  icons: {
-    icon: "/brand/favicon-tab.png",
-  },
-};
-
-export default function RootLayout({ children }: LayoutProps<"/">) {
+/** Casca compartilhada pelos dois idiomas: mesmo layout, mesmo design. Só muda o `lang` do documento e os textos fixos. */
+export function SiteShell({ lang, children }: { lang: Lang; children: ReactNode }) {
   return (
     <html
-      lang="pt-BR"
+      lang={lang === "en" ? "en-US" : "pt-BR"}
       className={`${display.variable} ${body.variable} h-full antialiased`}
       suppressHydrationWarning
     >
@@ -50,10 +42,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <Grain />
         <CustomCursor />
-        <Navbar />
+        <Navbar lang={lang} />
         <main className="flex-1">{children}</main>
-        <Footer />
-        <ThemeToggle />
+        <Footer lang={lang} />
+        <ThemeToggle lang={lang} />
         <TiltEnable />
         <Analytics />
         <SpeedInsights />

@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Reveal } from "./Reveal";
 import { TESTIMONIALS, TESTIMONIALS_TITLE, TESTIMONIAL_VIDEO, type Testimonial } from "@/content/testimonials";
 import { VideoTestimonial } from "./VideoTestimonial";
+import { QUOTES_EN, TESTIMONIALS_TITLE_EN } from "@/content/testimonials";
+import type { Lang } from "@/lib/i18n";
 
 const PLACEHOLDERS: Testimonial[] = Array.from({ length: 4 }, () => ({
   quote: "Espaço reservado para o depoimento do cliente, com a autorização dele.",
@@ -19,18 +21,18 @@ const GRID = {
   WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
 } as const;
 
-function Card({ t, flip }: { t: Testimonial; flip: boolean }) {
+function Card({ t, flip, lang }: { t: Testimonial; flip: boolean; lang: Lang }) {
   return (
     <li className={`flex w-[22rem] shrink-0 flex-col ${flip ? "flex-col-reverse" : ""}`}>
       <figure className="cb-panel p-6 rounded-2xl">
-        <blockquote className="text-lg leading-snug">“{t.quote}”</blockquote>
+        <blockquote className="text-lg leading-snug">“{lang === "en" ? QUOTES_EN[t.brand] ?? t.quote : t.quote}”</blockquote>
       </figure>
       <div className="relative flex h-36 items-center justify-center p-6">
         <div className="absolute inset-0 -z-10" style={GRID} aria-hidden />
         {t.logo ? (
           <Image src={t.logo} alt={t.brand} width={160} height={64} className="cb-client-logo h-14 w-auto max-w-[14rem] object-contain opacity-80" />
         ) : (
-          <span className="text-xs text-[var(--cb-muted)]">Logo do cliente</span>
+          <span className="text-xs text-[var(--cb-muted)]">{lang === "en" ? "Client logo" : "Logo do cliente"}</span>
         )}
       </div>
     </li>
@@ -41,12 +43,12 @@ function Card({ t, flip }: { t: Testimonial; flip: boolean }) {
  * Seção de depoimentos em faixa contínua (pausa ao passar o mouse). O cliente aparece só pelo logo, sem nome nem
  * foto. Sem depoimentos reais, só aparece em desenvolvimento (espaço reservado) e fica oculta no site publicado.
  */
-export function Testimonials({ withVideo = true }: { withVideo?: boolean }) {
+export function Testimonials({ withVideo = true, lang = "pt" }: { withVideo?: boolean; lang?: Lang }) {
   const real = TESTIMONIALS.length > 0;
   const dev = process.env.NODE_ENV !== "production";
   if (!real && !dev) return null;
   const items = real ? TESTIMONIALS : PLACEHOLDERS;
-  const title = real ? TESTIMONIALS_TITLE : "Título da seção de depoimentos";
+  const title = real ? (lang === "en" ? TESTIMONIALS_TITLE_EN : TESTIMONIALS_TITLE) : "Título da seção de depoimentos";
   // A faixa é duplicada e o alternado (cima/baixo) segue o índice: com quantidade ímpar, a emenda entre as duas
   // cópias repetiria a mesma posição. Poucos itens também deixariam a faixa curta. Repetir a lista resolve os dois.
   let list = items;
@@ -67,7 +69,7 @@ export function Testimonials({ withVideo = true }: { withVideo?: boolean }) {
         {[0, 1].map((copy) => (
           <ul key={copy} className="flex gap-5 pr-5" aria-hidden={copy === 1}>
             {list.map((t, i) => (
-              <Card key={i} t={t} flip={i % 2 === 0} />
+              <Card key={i} t={t} flip={i % 2 === 0} lang={lang} />
             ))}
           </ul>
         ))}
@@ -93,7 +95,7 @@ export function Testimonials({ withVideo = true }: { withVideo?: boolean }) {
         // Desktop: vídeo vertical à esquerda e a faixa à direita. Celular: vídeo no topo e a faixa embaixo.
         <div className="max-w-6xl mx-auto px-6 md:px-10 grid gap-12 md:grid-cols-[300px_minmax(0,1fr)] md:gap-10 items-center">
           <Reveal>
-            <VideoTestimonial video={TESTIMONIAL_VIDEO} />
+            <VideoTestimonial video={TESTIMONIAL_VIDEO} lang={lang} />
           </Reveal>
           <div className="-mx-6 md:mx-0 min-w-0">{marquee}</div>
         </div>

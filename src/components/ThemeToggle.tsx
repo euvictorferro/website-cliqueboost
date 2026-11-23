@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { UI, type Lang } from "@/lib/i18n";
 
 const KEY = "cb-theme";
 const root = () => document.documentElement;
@@ -14,7 +15,7 @@ const subscribe = (cb: () => void) => {
 const getTheme = () => (root().dataset.theme === "light" ? "light" : "dark");
 
 /** Botão fixo no canto direito: mostra o ícone do tema para onde o clique leva (lua no claro, sol no escuro). */
-export function ThemeToggle() {
+export function ThemeToggle({ lang = "pt" }: { lang?: Lang }) {
   const theme = useSyncExternalStore(subscribe, getTheme, () => "dark");
   const toLight = theme === "dark";
 
@@ -30,7 +31,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={toLight ? "Mudar para o tema claro" : "Mudar para o tema escuro"}
+      aria-label={toLight ? UI[lang].themeLight : UI[lang].themeDark}
       className="print:hidden cb-glass fixed right-4 bottom-5 md:bottom-auto md:right-6 md:top-1/2 md:-translate-y-1/2 z-50 w-11 h-11 md:w-12 md:h-12 rounded-full border border-[var(--cb-border-strong)] bg-[var(--cb-panel)]/70 text-[var(--cb-fg)] flex items-center justify-center hover:scale-105 transition-transform"
     >
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
-import { DEFAULT_CAPTION, type DashScreen } from "@/content/dashScreens";
+import { DEFAULT_CAPTION, DEFAULT_CAPTION_EN, type DashScreen } from "@/content/dashScreens";
+import type { Lang } from "@/lib/i18n";
 
 const TOP = 80; // 5rem: distância do bloco fixo até o topo, abaixo do navbar
 const STEP_VH = 0.55; // rolagem gasta em cada troca de tela, em alturas de janela
@@ -21,8 +22,10 @@ export function DashShowcase({
   screens,
   pin,
   children,
+  lang = "pt",
 }: {
   screens: DashScreen[];
+  lang?: Lang;
   pin?: boolean;
   children?: ReactNode;
 }) {
@@ -147,7 +150,7 @@ export function DashShowcase({
 
   // Na moldura fixa a largura acompanha a altura da janela, para o bloco inteiro caber sem cortar.
   const fit = pinned ? { width: "min(100%, calc((100vh - var(--dash-reserve, 28rem)) * 1.935))" } : undefined;
-  const caption = screens[i]?.caption ?? DEFAULT_CAPTION;
+  const caption = screens[i]?.caption ?? (lang === "en" ? DEFAULT_CAPTION_EN : DEFAULT_CAPTION);
 
   return (
     <div ref={rootRef}>
@@ -157,7 +160,7 @@ export function DashShowcase({
 
           <div className="mx-auto" style={fit}>
             {!pinned && n > 1 && (
-              <div role="tablist" aria-label="Telas do Dash" className="flex gap-2 overflow-x-auto -mx-1 px-1 pb-4 snap-x">
+              <div role="tablist" aria-label={lang === "en" ? "Dash screens" : "Telas do Dash"} className="flex gap-2 overflow-x-auto -mx-1 px-1 pb-4 snap-x">
                 {screens.map((sc, k) => (
                   <button
                     key={sc.key}

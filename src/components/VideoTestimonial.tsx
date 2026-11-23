@@ -17,7 +17,7 @@ const subscribeMotion = (cb: () => void) => {
  * página. Com "reduzir movimento" ligado, não começa sozinho e usa os controles normais.
  * Sem `video`, mostra o espaço reservado (só em desenvolvimento).
  */
-export function VideoTestimonial({ video }: { video: TestimonialVideo | null }) {
+export function VideoTestimonial({ video, lang = "pt" }: { video: TestimonialVideo | null; lang?: "pt" | "en" }) {
   const boxRef = useRef<HTMLDivElement>(null);
   const vref = useRef<HTMLVideoElement>(null);
   const inView = useRef(false);
@@ -85,7 +85,7 @@ export function VideoTestimonial({ video }: { video: TestimonialVideo | null }) 
                 const v = e.currentTarget;
                 if (!reduce && inView.current && !document.hidden && !v.ended) v.play().catch(() => {});
               }}
-              aria-label={`Depoimento em vídeo de ${video.brand}`}
+              aria-label={lang === "en" ? `Testimonial video from ${video.brand}` : `Depoimento em vídeo de ${video.brand}`}
               className="absolute inset-0 h-full w-full object-cover bg-black"
             >
               {video.captions && <track kind="captions" src={video.captions} srcLang="pt-BR" label="Português" default />}
@@ -110,7 +110,7 @@ export function VideoTestimonial({ video }: { video: TestimonialVideo | null }) 
                 <path d="M8 5.5v13a1 1 0 001.5.86l10.5-6.5a1 1 0 000-1.72L9.5 4.64A1 1 0 008 5.5z" />
               </svg>
             </span>
-            <span className="absolute bottom-4 left-0 right-0 px-4 text-center text-xs text-[var(--cb-fg)]/80">Vídeo de depoimento, 9:16, 30 s</span>
+            <span className="absolute bottom-4 left-0 right-0 px-4 text-center text-xs text-[var(--cb-fg)]/80">{lang === "en" ? "Testimonial video, 9:16, 30 s" : "Vídeo de depoimento, 9:16, 30 s"}</span>
           </div>
         )}
       </div>

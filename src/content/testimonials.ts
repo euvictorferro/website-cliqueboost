@@ -76,3 +76,23 @@ export const TESTIMONIAL_VIDEO: TestimonialVideo | null = {
   poster: "/depoimentos/depoimento-1.jpg",
   brand: "cliente da Clique Boost", // [confirmar] o nome da marca que aparece no vídeo; sem legenda ainda (falta a transcrição)
 };
+
+/** Tradução fiel dos depoimentos acima, para o site em inglês (/en). Chave: nome da marca. */
+export const TESTIMONIALS_TITLE_EN = "In the words of people who already work with us";
+
+export const QUOTES_EN: Record<string, string> = {
+  "Sam Corretor Orlando": "The team's work completely changed the game for us here. The service is outstanding and very attentive.",
+  Avrinda:
+    "They made my brand absolutely wonderful! I loved the new positioning, it gave me a lot of authority in the market. And adding AI to the bot customer service was a turning point: it sped things up a lot for me.",
+  "Frontline Legacy":
+    "I loved the result! I loved how they positioned my logo and the harmony they created for the whole look. My social media looks very beautiful and organized. Highly recommended!",
+  Daltrozo: "My social media is finally consistent and elegant, exactly the way I always wanted!",
+  "Aligned Legacy Partners":
+    "The Brand Guide they built for me is spectacular! It brought real clarity to my company's communication and made creating content much easier. It helped raise the level of the business a lot.",
+  "Vida Bela":
+    "The support and follow-up they provide are outstanding. They don't just deliver the post and disappear; they are with me day to day, motivate me to record videos, give practical guidance and really help me grow my career on social media.",
+  "Alliance Group":
+    "The branding they developed for us is wonderful. They translated our concept perfectly and our positioning in the market is flawless. Everyone compliments it!",
+  "KS Florida Homes":
+    "The visual strategy and brand positioning turned out sensational. The quality of the productions and the care with client service make all the difference in our market. 100% approved!",
+};

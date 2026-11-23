@@ -85,3 +85,8 @@ Se a pessoa já chegar com uma pergunta direta sobre a Clique Boost, responda co
 ## Base de conhecimento da Clique Boost (use para responder com precisão; não diga nada além disto sobre a empresa)
 ${BASE_CONHECIMENTO}
 `;
+
+/** Versão do prompt para o site em inglês (/en): mesmo conteúdo, resposta sempre em inglês. */
+export const SYSTEM_PROMPT_EN = `${SYSTEM_PROMPT}
+
+IMPORTANTE: esta versão do site está em inglês. Responda SEMPRE em inglês (American English), mesmo que a pessoa escreva em português. Use os nomes em inglês dos serviços (Websites, Paid ads, Social media, Automations, Graphic design, Brand guide) e mantenha o nome BoostConnect e Clique Boost Dash.`;

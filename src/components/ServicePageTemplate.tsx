@@ -7,15 +7,15 @@ import { FinalCTA } from "./FinalCTA";
 import type { ServiceContent } from "@/content/services";
 import { SERVICE_SCREENS } from "@/content/dashScreens";
 
-export function ServicePageTemplate({ content }: { content: ServiceContent }) {
+export function ServicePageTemplate({ content, lang = "pt" }: { content: ServiceContent; lang?: "pt" | "en" }) {
   return (
     <>
       <ServiceHero title={content.title} painHook={content.painHook} />
       <ProblemSection title={content.problem.title} points={content.problem.points} />
       <SolutionSection title={content.solution.title} items={content.solution.items} />
-      <DashProofSection angle={content.dashAngle} screens={SERVICE_SCREENS[content.slug]} />
+      <DashProofSection angle={content.dashAngle} screens={SERVICE_SCREENS[content.slug]} lang={lang} />
       <ProcessSteps title={content.process.title} steps={content.process.steps} />
-      <FinalCTA title={content.cta.title} subtitle={content.cta.subtitle} />
+      <FinalCTA title={content.cta.title} subtitle={content.cta.subtitle} ctaLabel={lang === "en" ? "Book a call" : undefined} />
     </>
   );
 }

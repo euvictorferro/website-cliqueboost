@@ -1,6 +1,8 @@
 /** Telas de exemplo do Dash (conta Demo). `light` é a captura do tema claro. */
 export type DashScreen = { key: string; label: string; title: string; alt: string; dark: string; light?: string; caption?: string; description?: string };
 
+import type { Lang } from "@/lib/i18n";
+
 /** `description` (uma frase sobre o que a tela mostra) e `caption` (legenda) são texto do Marketing. */
 export const DEFAULT_CAPTION = "Tela de exemplo do Dash.";
 
@@ -25,7 +27,23 @@ export const SERVICE_SCREENS: Record<string, string[]> = {
   "brand-guide": ["bunker", "atas"],
 };
 
-export function screensFor(keys?: string[]): DashScreen[] {
-  if (!keys) return DASH_SCREENS;
-  return keys.map((k) => DASH_SCREENS.find((s) => s.key === k)).filter((s): s is DashScreen => Boolean(s));
+/** Textos em inglês das telas (mesmas imagens; só título, rótulo, legenda e descrição). */
+const DASH_SCREENS_EN: Record<string, Partial<DashScreen>> = {
+  dashboard: { title: "Instagram metrics in one place", label: "Dashboard", alt: "Example Dash screen with Instagram metrics", description: "See your Instagram metrics, such as reach, followers and engagement, in one place." },
+  ads: { title: "Ads, in development", label: "Ads", alt: "Example Dash screen with ad metrics", caption: "Ads module in development.", description: "Module in development: here you will see your ads and the budget invested." },
+  tasks: { title: "Team tasks, with deadlines", label: "Tasks", alt: "Example Dash screen with tasks by status", description: "Follow what the team is producing, with owner, deadline and status." },
+  conteudos: { title: "Content at every stage", label: "Content", alt: "Example Dash screen with the weekly content board", description: "From what will be posted to what was already published, each piece at its stage." },
+  calendario: { title: "Posting calendar", label: "Calendar", alt: "Example Dash screen with the posting calendar", description: "See what is scheduled for each day and each week." },
+  bunker: { title: "Your business files", label: "Bunker", alt: "Example Dash screen with ideas and references", description: "Your business files, such as logos and materials, kept in one place." },
+  atas: { title: "Meeting notes", label: "Minutes", alt: "Example Dash screen with the meeting minutes list", description: "Each meeting with its record, to check whenever you need." },
+  booster: { title: "Ask the AI about your account", label: "Booster AI", alt: "Example Dash screen with the Booster AI assistant", description: "Get answers about your account, content and metrics by chatting with the AI." },
+};
+
+export const DEFAULT_CAPTION_EN = "Example Dash screen.";
+
+export function screensFor(keys?: string[], lang: Lang = "pt"): DashScreen[] {
+  const list = keys
+    ? keys.map((k) => DASH_SCREENS.find((s) => s.key === k)).filter((s): s is DashScreen => Boolean(s))
+    : DASH_SCREENS;
+  return lang === "en" ? list.map((s) => ({ ...s, ...DASH_SCREENS_EN[s.key] })) : list;
 }
