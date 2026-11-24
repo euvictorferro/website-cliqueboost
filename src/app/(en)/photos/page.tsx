@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BeforeAfterPair } from "@/components/BeforeAfterPair";
+import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { PhotoLeadForm } from "@/components/PhotoLeadForm";
 import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { HeroParticleLogo } from "@/components/HeroParticleLogo";
@@ -69,9 +69,9 @@ export default function PhotosPage() {
       <section className="px-6 md:px-10 py-20 bg-[var(--cb-panel)]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-5xl mb-12">Before and after</h2>
-          <div className="grid gap-12">
+          <div className="grid gap-10 md:grid-cols-2">
             {PHOTO_PROJECTS.map((p) => (
-              <BeforeAfterPair key={p.room} project={p} />
+              <BeforeAfterSlider key={p.room} project={p} />
             ))}
           </div>
           <p className="mt-12 text-sm text-[var(--cb-muted)]">

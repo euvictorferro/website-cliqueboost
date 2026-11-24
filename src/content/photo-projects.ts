@@ -8,6 +8,7 @@ export type PhotoProject = {
   before: string;
   after: string;
   alt: string;
+  large?: boolean;
 };
 
 export const PHOTO_PROJECTS: PhotoProject[] = [
@@ -17,6 +18,7 @@ export const PHOTO_PROJECTS: PhotoProject[] = [
     before: "/photos/park-estates/fachada-before.webp",
     after: "/photos/park-estates/fachada-after.webp",
     alt: "Two-story house exterior with a driveway and lawn",
+    large: true,
   },
   {
     room: "Kitchen",
@@ -24,6 +26,7 @@ export const PHOTO_PROJECTS: PhotoProject[] = [
     before: "/photos/park-estates/cozinha-before.webp",
     after: "/photos/park-estates/cozinha-after.webp",
     alt: "Kitchen with an island, bar stools and pendant lights",
+    large: true,
   },
   {
     room: "Living room",
