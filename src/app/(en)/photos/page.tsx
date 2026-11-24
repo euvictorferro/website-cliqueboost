@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
+import { BeforeAfterPair } from "@/components/BeforeAfterPair";
 import { PhotoLeadForm } from "@/components/PhotoLeadForm";
 import { HeroBackdrop } from "@/components/HeroBackdrop";
 import { HeroParticleLogo } from "@/components/HeroParticleLogo";
@@ -8,7 +8,7 @@ import { Reveal } from "@/components/Reveal";
 import { PHOTO_PROJECTS } from "@/content/photo-projects";
 
 const DESCRIPTION =
-  "Retouched photos for short-term rentals: brighter light, true colors and clean walls, delivered in 48 hours. Get a free sample today.";
+  "Retouched photos for short-term rentals: brighter light, true colors and clean walls, delivered in 12 hours. Get a free sample today.";
 
 export const metadata: Metadata = {
   title: "Retouched photos for short-term rentals | Clique Boost",
@@ -18,11 +18,11 @@ export const metadata: Metadata = {
 };
 
 const CHANGE = ["Light", "Color", "Sharpness", "Tilted horizons", "Small dirt"];
-const NEVER = ["Furniture", "Room sizes", "Real defects", "The view"];
+const NEVER = ["Furniture and layout", "Room sizes", "Real defects", "The view"];
 
 const STEPS = [
   { title: "Send the listing link", description: "Share the link of your listing. That is all we need to start." },
-  { title: "Get the photos in 48 hours", description: "We retouch the photos and send them back, before and after." },
+  { title: "Get the photos in 12 hours", description: "We retouch the photos and send them back, before and after." },
   { title: "Approve and pay only if you like it", description: "If the result works for you, you pay. If not, you owe nothing." },
 ];
 
@@ -48,11 +48,11 @@ export default function PhotosPage() {
         <div className="relative">
           <div className="min-h-[88svh] flex flex-col justify-center px-6 md:px-10 pt-28 pb-16">
             <div className="relative w-full max-w-6xl mx-auto">
-              <HeroParticleLogo className="absolute right-0 top-1/2 -translate-y-1/2 h-[min(80vh,620px)] w-full md:w-[52%] opacity-30 md:opacity-100" />
+              <HeroParticleLogo className="absolute right-0 top-1/2 -translate-y-1/2 h-[min(80vh,620px)] w-full md:w-[52%] opacity-15 md:opacity-100" />
               <Reveal className="relative max-w-3xl pointer-events-none">
                 <HeroTitle lines={["Better listing photos.", "Same property."]} accentFrom={1} />
-                <p className="text-xl md:text-2xl text-[var(--cb-muted)] max-w-xl mb-12">
-                  Retouched photos for short-term rentals, delivered in 48 hours.
+                <p className="text-xl md:text-2xl text-[var(--cb-fg)] max-w-xl mb-12">
+                  Retouched photos for short-term rentals, delivered in 12 hours.
                 </p>
                 <a
                   href="#sample"
@@ -69,14 +69,17 @@ export default function PhotosPage() {
       <section className="px-6 md:px-10 py-20 bg-[var(--cb-panel)]">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-5xl mb-12">Before and after</h2>
-          <div className="grid gap-10 md:grid-cols-2">
+          <div className="grid gap-12">
             {PHOTO_PROJECTS.map((p) => (
-              <BeforeAfterSlider key={p.room} project={p} />
+              <BeforeAfterPair key={p.room} project={p} />
             ))}
           </div>
           <p className="mt-12 text-sm text-[var(--cb-muted)]">
             Sample projects. Photos shown are examples of our retouching and are credited to their owners. Photos of client
             properties appear only with written permission.
+          </p>
+          <p className="mt-2 text-sm text-[var(--cb-muted)]">
+            Photos: 10275 Park Estates Ave, Orlando, shared with the owner&apos;s permission.
           </p>
         </div>
       </section>
